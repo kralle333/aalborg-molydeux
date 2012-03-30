@@ -18,6 +18,14 @@ package
 		
 		override public function update():void 
 		{
+			var x:int = FlxG.mouse.screenX;
+			var y:int = FlxG.mouse.screenY;
+			
+			if (FlxG.mouse.justPressed)
+			{
+				
+			}
+			
 			super.update();
 		}
 		
