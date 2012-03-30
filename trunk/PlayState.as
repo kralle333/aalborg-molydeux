@@ -14,24 +14,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-		}
-		
-		override public function update():void 
-		{
-			
-			super.update();
-			while(x)
-			{
-				var y = FlxG.mouse.screenX;
-				var x = FlxG.mouse.screenY;
-				add(new FlxButton(x, y, "Something", null));
-				
-				
-			}
-			
-			
-		}
-		
+		}		
 	}
 
 }
