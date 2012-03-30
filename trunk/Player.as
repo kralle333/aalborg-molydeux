@@ -50,6 +50,7 @@ package
 					isJumping = false;
 					jumpHeight = 0;
 				}
+				
 			}
 		}
 				
