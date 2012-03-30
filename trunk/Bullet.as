@@ -3,7 +3,7 @@ package
 	import org.flixel.*;
 	public class Bullet extends FlxSprite
 	{
-		//[Embed(source = 'NAVNPÅFIL.png')]private var nBulletTexture:Class;
+		[Embed(source = 'bullet.png')]private var nBulletTexture:Class;
 		
 		private var speed:int;
 		public var damage:int;
@@ -21,9 +21,8 @@ package
 		{
 			this.velocity.x -= speed;
 			this.velocity.y -= speed;
-			this.angle = 50;
 			
-			this.
+			exists = true;
 			
 		}
 		override public function update():void 
@@ -35,6 +34,10 @@ package
 		public function hit():void
 		{
 
+			velocity.y = 0;
+			velocity.x = 0;
+			exists = false;
+			
 			
 		}
 	}		
