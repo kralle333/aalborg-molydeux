@@ -1,22 +1,26 @@
 package  
 {
-	import org.flixel.FlxSprite;
-	import org.flixel.FlxBasic;
-	
+	import org.flixel.*;
 	
 	public class Enemy extends FlxSprite
 	{	
 		[Embed(source = 'assets/enemy1.png')] private var texture:Class;
-		public function Enemy() 
+		public function Enemy()
 		{
 			super(0, 0, texture);
 			alive = false;
 		}
 		public function spawn():void
 		{
-			velocity.x = -50;
-			x = -Math.random() * 100 - 50;
+			velocity.x = -Math.random() * 300+200;
+			x = FlxG.width;
+			y = FlxG.height-height;
 			alive = true;
+			health = 100;
+		}
+		override public function update():void 
+		{
+			super.update();
 		}
 	}
 

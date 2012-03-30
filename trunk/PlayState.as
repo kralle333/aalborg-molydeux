@@ -11,7 +11,10 @@ package
 			
 			super.create();
 		}
-		
+		override public function update():void 
+		{
+			super.update();
+		}
 		
 		override public function update():void 
 		{

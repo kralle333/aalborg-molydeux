@@ -4,6 +4,7 @@ package
 	public class EnemyManager extends FlxGroup
 	{
 		private var enemiesAllowed:int = 10;
+		private var enemiesAlive:int = 0;
 		public function EnemyManager()
 		{
 			for (var i:int = 0; i < enemiesAllowed; i++)
@@ -11,9 +12,8 @@ package
 				add(new Enemy);
 			}
 		}
-		override public function update():void 
+		public function spawnEnemy():void
 		{
-			super.update();
 			var enemy:Enemy = Enemy(getFirstDead());
 			if (enemy)
 			{
@@ -30,6 +30,15 @@ package
 					case 5: color = 0x0014FF; break;
 				}
 				enemy.color = color;
+				enemiesAlive++;
+			}
+		}
+		override public function update():void 
+		{
+			super.update();
+			if (enemiesAlive < enemiesAllowed)
+			{
+				spawnEnemy();
 			}
 		}
 	}

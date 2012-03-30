@@ -7,7 +7,7 @@ package
 	{
 		public function Main()
 		{
-			super(320,240,MainMenuState,2); 
+			super(800,480,MainMenuState,1); 
 		}
 	}
 }
