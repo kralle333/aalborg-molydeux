@@ -7,7 +7,7 @@ package
 		[Embed(source = 'assets/enemy1.png')] private var texture:Class;
 		public function Enemy()
 		{
-			super(0, 0, texture);
+			super(-200, 0, texture);
 			alive = false;
 		}
 		public function spawn():void
