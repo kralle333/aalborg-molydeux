@@ -14,7 +14,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.overlap(Registry.enemies, Registry.player))
+			if (FlxG.overlap(Registry.enemies, Registry.player, null))
 			{
 				
 			}
