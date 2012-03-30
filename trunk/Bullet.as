@@ -3,7 +3,7 @@ package
 	import org.flixel.*;
 	public class Bullet extends FlxSprite
 	{
-		[Embed(source = 'bullet.png')]private var nBulletTexture:Class;
+		[Embed(source = 'assets/bullet.png')]private var nBulletTexture:Class;
 		
 		private var speed:int;
 		public var damage:int;
