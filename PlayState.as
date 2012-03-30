@@ -7,10 +7,7 @@ package
 		public function PlayState() 
 		{
 			
-			
 		}
-		
-		
 		
 	}
 
