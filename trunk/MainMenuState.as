@@ -18,7 +18,7 @@ package
 		}
 		private function clickPlayGame()
 		{
-			//FlxG.switchState(new PlayState());
+			FlxG.switchState(new PlayState());
 		}
 		
 		private function clickHighScore()
