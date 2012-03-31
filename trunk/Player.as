@@ -62,8 +62,8 @@ package
 			{
 				var bulletX:int = Math.round(gun.x + gun.width * Math.cos(FlxMath.asRadians(gun.angle)));
 				var bulletY:int = Math.round(gun.y + gun.width * Math.sin(FlxMath.asRadians(gun.angle)));
-				var velocityX:int =gun.width * Math.cos(FlxMath.asRadians(gun.angle));
-				var velocityY:int =gun.width * Math.sin(FlxMath.asRadians(gun.angle));
+				var velocityX:Number =Math.cos(FlxMath.asRadians(gun.angle));
+				var velocityY:Number =Math.sin(FlxMath.asRadians(gun.angle));
 				Registry.bullets.fire(bulletX, bulletY,velocityX,velocityY);
 			}
 		}

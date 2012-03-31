@@ -13,7 +13,7 @@ package
 			}
 		}
 		
-		public function fire(fx:int, fy:int,velocityX:int,velocityY:int):void
+		public function fire(fx:int, fy:int,velocityX:Number,velocityY:Number):void
 		{
 			if (getFirstAvailable())
 			{
