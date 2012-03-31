@@ -16,13 +16,10 @@ package
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		
-		//Groups, used for checking collision
-		private var groundTiles:FlxGroup = new FlxGroup();
-		private var platforms:FlxGroup = new FlxGroup();
 		override public function create():void 
 		{
-			platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
-			add(platforms);
+			
+			
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000, kmText + maxPoint.toString());
 			scoreText.size = 100;
 			super.create();
@@ -32,8 +29,11 @@ package
 			add(Registry.enemies);
 			add(Registry.player.gun);
 			add(Registry.bullets);
+			add(Registry.platforms);
+			add(Registry.groundTiles);
 			initGround();
 			add(scoreText);
+			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
 		}
 		public function playAgainClick():void
 		{
@@ -62,7 +62,7 @@ package
 				scoreText.text = kmText + (Registry.player.x/2).toString();
 			}
 			
-			if (FlxG.overlap(Registry.enemies, Registry.player) || FlxG.overlap(groundTiles,Registry.player))
+			if (FlxG.overlap(Registry.enemies, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
 				var emitter:FlxEmitter = createEmitter(splat,100);
@@ -75,7 +75,8 @@ package
 			
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
 			updateGround();
-			if (!FlxG.overlap(platforms, Registry.player))
+			updatePlatforms();
+			if (!FlxG.overlap(Registry.platforms, Registry.player))
 			{
 				Registry.player.landed(true);
 			}
@@ -83,7 +84,6 @@ package
 			{
 				Registry.player.landed(false);
 			}
-			
 		}
 		
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
@@ -98,20 +98,20 @@ package
 			for (var i:int = 0; i < FlxG.width; i += 48)
 			{
 				var tile:GroundTile = new GroundTile(i,FlxG.height-48);
-				groundTiles.add(tile);
+				Registry.groundTiles.add(tile);
 				add(tile);
 			}
 		}
 		private function updateGround():void
 		{
-			var groundTile:Enemy = Enemy(groundTiles.getFirstAvailable());
+			var groundTile:GroundTile = GroundTile(Registry.groundTiles.getFirstAvailable());
 			if (groundTile)
 			{
 				var farRightTile:GroundTile;
 				var xPosition:int = 0;
-				for (var tile in groundTiles.members)
+				for (var tile in Registry.groundTiles.members)
 				{
-					if (groundTiles.members[tile].x > xPosition)
+					if (Registry.groundTiles.members[tile].x > xPosition)
 					{
 						farRightTile = tile;
 						xPosition = tile.x;
@@ -121,7 +121,16 @@ package
 				groundTile.exists = true;
 			}
 		}
-		
+		private function updatePlatforms():void
+		{
+			for (var platform in Registry.platforms)
+			{
+				if (Registry.platforms.members[platform].added == false )
+				{
+					add(platform);
+				}
+			}
+		}
 	}
 
 }
