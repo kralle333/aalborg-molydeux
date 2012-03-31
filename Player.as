@@ -9,9 +9,11 @@ package
 		private var xSpeed:int = 5;
 		private var ySpeed:int = 2;
 		private var isJumping:Boolean = false;
+		public var falling:Boolean = false;
 		private var maxHeight:int = 100;
 		private var jumpHeight:int = 0;
 		public var gun:FlxSprite;
+		
 		[Embed(source = 'assets/player.png')] private var bodyTexture:Class;
 		[Embed(source = 'assets/gun.png')] private var gunTexture:Class;
 		public function Player(userName:String) 
@@ -37,13 +39,10 @@ package
 			{
 				x += xSpeed;
 			}
-			if (FlxG.keys.W && !isJumping)
+			if ((FlxG.keys.W ||FlxG.keys.SPACE) && !isJumping)
 			{
 				isJumping = true;
-			}
-			if (FlxG.keys.SPACE && !isJumping)
-			{
-				isJumping = true;
+				falling = true;
 			}
 			if (isJumping)
 			{
@@ -52,14 +51,13 @@ package
 					y -= ySpeed;
 					jumpHeight += ySpeed;
 				}
-				else if(y+height+ySpeed<FlxG.height-48)
+				else
 				{
 					y += ySpeed;
 				}
-				else
+				if (!falling)
 				{
 					isJumping = false;
-					jumpHeight = 0;
 				}
 			}
 			if (FlxG.mouse.justPressed())
@@ -71,7 +69,14 @@ package
 				Registry.bullets.fire(bulletX, bulletY,velocityX,velocityY);
 			} 
 		}
-				
+		public function landed(value:Boolean):void
+		{
+			falling = value;
+			if (!value)
+			{
+				jumpHeight = 0;
+			}
+		}
 	}
 
 }

@@ -8,7 +8,14 @@ package
 		{
 			super(x, y);
 			loadGraphic(ground1Texture, true, true, 48, 48);
-			addAnimation("lava", [0, 1], 2);
+			if (Math.round(Math.random()) * 2 == 2)
+			{
+				addAnimation("lava", [0, 1], 3);
+			}
+			else
+			{
+				addAnimation("lava", [1, 0], 3);
+			}
 			play("lava");
 		}
 		override public function update():void 
