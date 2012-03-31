@@ -5,21 +5,24 @@ package
 	import org.flixel.*;
 	public class PlayState extends FlxState 
 	{
-		public var startBar:FlxSprite;
-		internal var scoreText:FlxText;
-		var kmText:String = "M: ";
-		var maxPoint:Number = 0;	
+		
+		//For highscore
+		private var kmText:String = "M: ";
+		private var maxPoint:Number = 0;
+		private var scoreText:FlxText;
+		
+		//Textures
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
+		
+		//Groups, used for checking collision
 		private var groundTiles:FlxGroup = new FlxGroup();
-		private var platfroms:FlxGroup = new FlxGroup();
+		private var platforms:FlxGroup = new FlxGroup();
 		override public function create():void 
 		{
-			//startBar = new FlxBar(0, 0, 2, 100, 10, Player, "Health");
-			startBar = new FlxSprite(10, FlxG.height-50, startBarTexture);
-			add(startBar);
-			platfroms.add(startBar);
+			platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
+			add(platforms);
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000, kmText + maxPoint.toString());
 			scoreText.size = 100;
 			super.create();
@@ -72,7 +75,7 @@ package
 			
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
 			updateGround();
-			if (!FlxG.overlap(platfroms, Registry.player))
+			if (!FlxG.overlap(platforms, Registry.player))
 			{
 				Registry.player.landed(true);
 			}
