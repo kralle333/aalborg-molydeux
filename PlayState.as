@@ -20,7 +20,6 @@ package
 		override public function create():void 
 		{
 			
-			cameraView = (new FlxCamera(FlxG.width, FlxG.height, 10, 10, 0));
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000, kmText + maxPoint.toString());
 			scoreText.size = 100;
 			super.create();
@@ -37,6 +36,7 @@ package
 			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
 			FlxG.camera.setBounds(Registry.player.x, 0, FlxG.width*5, FlxG.height);
 			FlxG.camera.follow(Registry.player);
+			
 		}
 		public function playAgainClick():void
 		{
@@ -58,8 +58,8 @@ package
 		}
 		override public function update():void 
 		{
+			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
 			super.update();
-			cameraView.follow(Registry.player);
 			if ((Registry.player.x/1000) > maxPoint)
 			{
 				maxPoint = Registry.player.x / 1000;
