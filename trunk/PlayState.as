@@ -10,7 +10,6 @@ package
 		private var kmText:String = "M: ";
 		private var maxPoint:Number = 0;
 		private var scoreText:FlxText;
-		public var cameraView:FlxCamera;
 		
 		//Textures
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
@@ -33,9 +32,9 @@ package
 			add(Registry.groundTiles);
 			initGround();
 			add(scoreText);
+			
 			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
-			FlxG.camera.setBounds(Registry.player.x, 0, FlxG.width*5, FlxG.height);
-			FlxG.camera.follow(Registry.player);
+			//FlxG.camera.follow(Registry.player);
 			
 		}
 		public function playAgainClick():void
