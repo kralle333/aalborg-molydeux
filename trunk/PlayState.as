@@ -5,15 +5,21 @@ package
 	import org.flixel.*;
 	public class PlayState extends FlxState 
 	{
-		var scoreText:FlxText;
+		var platformGroup: FlxGroup;
+		public var startBar:FlxSprite;
+		internal var scoreText:FlxText;
 		var kmText:String = "M: ";
 		var maxPoint:Number = 0;	
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
+		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		private var groundTiles:FlxGroup = new FlxGroup();
 		override public function create():void 
 		{
 			
+			//startBar = new FlxBar(0, 0, 2, 100, 10, Player, "Health");
+			startBar = new FlxSprite(10, FlxG.height-50, startBarTexture);
+			add(startBar);
 			scoreText = new FlxText(FlxG.width/2-100, FlxG.height/2-100, 1000, kmText+maxPoint.toString());
 			super.create();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
@@ -59,6 +65,7 @@ package
 			}
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
 			updateGround();
+			
 		}
 		
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
