@@ -16,12 +16,12 @@ package
 			highScoreButton.x = playButton.x;
 			add(highScoreButton);
 		}
-		private function clickPlayGame()
+		private function clickPlayGame():void
 		{
 			FlxG.switchState(new PlayState());
 		}
 		
-		private function clickHighScore()
+		private function clickHighScore():void
 		{
 			
 		}
