@@ -4,10 +4,13 @@ package
 	
 	public class Enemy extends FlxSprite
 	{	
-		[Embed(source = 'assets/enemy1.png')] private var texture:Class;
+		[Embed(source = 'assets/enemy1.png')] private var enemy1:Class;
 		public function Enemy()
 		{
-			super(-200, 0, texture);
+			super(-200, 0, enemy1);
+			loadGraphic(enemy1, true,true,24, 64);
+			addAnimation("moveEnemy", [0, 1], 2,true);
+			play("moveEnemy");
 			alive = false;
 		}
 		public function spawn():void
