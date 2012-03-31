@@ -16,7 +16,15 @@ package
 			x = FlxG.width;
 			y = FlxG.height-height;
 			alive = true;
-			health = 100;
+			health = 2;
+		}
+		override public function hurt(damage:Number):void 
+		{
+			 super.hurt(damage);
+		}
+		override public function kill():void 
+		{
+			super.kill();
 		}
 		override public function update():void 
 		{

@@ -34,7 +34,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.overlap(Registry.enemies, Registry.player, null))
+			if (FlxG.overlap(Registry.enemies, Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
 				var emitter:FlxEmitter = createEmitter(splat,20);
@@ -42,6 +42,14 @@ package
 				
 				Registry.player.exists = false;
 			}
+			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
+		}
+		
+		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
+		{
+			var enemy:Enemy =  Enemy(enemyHit);
+			var bullet:Bullet = Bullet(bulletHit);
+			enemy.hurt(bullet.damage);
 		}
 		
 
