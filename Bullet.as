@@ -3,24 +3,24 @@ package
 	import org.flixel.*;
 	public class Bullet extends FlxSprite
 	{
-		[Embed(source = 'assets/bullet.png')]private var nBulletTexture:Class;
+		[Embed(source = 'assets/bullet.png')]private var texture:Class;
 		
-		private var speed:int;
+		private var speed:int = 2;
 		public var damage:int;
 		public function Bullet() 
 		{
-			var texture:Class;
-			texture = nBulletTexture;
 			speed = 100;
 			damage = 10;
 			super(0, 0, texture);
 			exists = false;
 			
 		}
-		public function fire(fx:int, fy:int):void
+		public function fire(fx:int, fy:int,velocityX:int,velocityY:int):void
 		{
-			this.velocity.x -= speed;
-			this.velocity.y -= speed;
+			x = fx;
+			y = fy;
+			this.velocity.x += velocityX;
+			this.velocity.y += velocityY;
 			
 			exists = true;
 			
@@ -41,10 +41,4 @@ package
 			
 		}
 	}		
-		
-		
-		
-		
-	}
-
 }

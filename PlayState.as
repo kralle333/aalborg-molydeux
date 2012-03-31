@@ -14,6 +14,7 @@ package
 			add(Registry.player);
 			add(Registry.enemies);
 			add(Registry.player.gun);
+			add(Registry.bullets);
 		}
 		public function playAgain():void
 		{
