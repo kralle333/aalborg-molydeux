@@ -37,10 +37,11 @@ package
 			if (FlxG.overlap(Registry.enemies, Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
-				var emitter:FlxEmitter = createEmitter(splat,20);
+				var emitter:FlxEmitter = createEmitter(splat,100);
 				emitter.at(Registry.player);
-				
+				FlxG.
 				Registry.player.exists = false;
+				Registry.player.gun.exists = false;
 			}
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
 		}
