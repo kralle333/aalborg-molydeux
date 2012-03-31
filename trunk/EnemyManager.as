@@ -3,7 +3,7 @@ package
 	import org.flixel.*;
 	public class EnemyManager extends FlxGroup
 	{
-		private var enemiesAllowed:int = 10;
+		private var enemiesAllowed:int = 5;
 		private var enemiesAlive:int = 0;
 		public function EnemyManager()
 		{
@@ -20,7 +20,6 @@ package
 			{
 				enemy.spawn();
 				alive = true;
-
 				enemiesAlive++;
 			}
 		}

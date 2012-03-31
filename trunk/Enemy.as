@@ -17,11 +17,13 @@ package
 		}
 		public function spawn():void
 		{
-			velocity.x = -Math.random() * 300+200;
-			x = FlxG.width;
-			y = FlxG.height-height-40;
+			velocity.x = -Math.random() * 200-50;
+			x = FlxG.width+Registry.player.x;
+			y = FlxG.height - height - 40;
+			alpha = 1;
+			angle = 0;
 			alive = true;
-			
+			exists = true;
 			health = 2;
 		}
 		override public function hurt(damage:Number):void 
@@ -37,7 +39,7 @@ package
 			super.update();
 			if (isDead)
 			{
-				angle += 5;
+				angle += 10;
 				alpha -= 0.1;
 				if (angle >=90)
 				{
