@@ -11,7 +11,6 @@ package
 			super(x,y, platformTexture);
 			added = false;
 		}
-		
 	}
 
 }

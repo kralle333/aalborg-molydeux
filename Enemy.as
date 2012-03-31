@@ -44,7 +44,7 @@ package
 					exists = false;
 					alive = false;
 					isDead = false;
-					Registry.platforms.add(new CorpsePlatform("corpse",x,y+10));
+					Registry.platforms.add(new CorpsePlatform("corpse",x,y+50));
 				}
 			}
 		}
