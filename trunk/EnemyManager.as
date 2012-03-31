@@ -44,11 +44,6 @@ package
 				spawnEnemy();
 			}
 			
-			/*if (FlxG.overlap(Registry.bullets, Registry.enemies))
-			{
-					Registry.bullets.exists = false;
-			}*/
-			
 		}
 	}
 

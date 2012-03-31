@@ -21,9 +21,7 @@ package
 			y = fy;
 			this.velocity.x = velocityX*speed;
 			this.velocity.y = velocityY*speed;
-			
 			exists = true;
-			
 		}
 		override public function update():void 
 		{
@@ -34,14 +32,6 @@ package
 				if (y > FlxG.height) { exists = false; }
 				if (x < 0 || y < 0) { exists = false; }
 			}
-			
-		}
-		public function hit():void
-		{
-			
-			velocity.y = 0;
-			velocity.x = 0;
-			exists = false;
 			
 		}
 	}		
