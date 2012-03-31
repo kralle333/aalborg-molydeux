@@ -14,7 +14,7 @@ package
 		{
 			velocity.x = -Math.random() * 300+200;
 			x = FlxG.width;
-			y = FlxG.height-height;
+			y = FlxG.height-height-40;
 			alive = true;
 			health = 2;
 		}
