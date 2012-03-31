@@ -23,7 +23,7 @@ package
 		
 		private function clickHighScore():void
 		{
-			
+	
 		}
 	}
 }

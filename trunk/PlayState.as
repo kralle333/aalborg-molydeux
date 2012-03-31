@@ -1,5 +1,6 @@
 package  
 {
+	import adobe.utils.CustomActions;
 	import flash.sampler.NewObjectSample;
 	import org.flixel.*;
 	public class PlayState extends FlxState 
@@ -9,6 +10,7 @@ package
 		var maxPoint:Number = 0;	
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
+		private var groundTiles:FlxGroup = new FlxGroup();
 		override public function create():void 
 		{
 			
@@ -20,6 +22,7 @@ package
 			add(Registry.enemies);
 			add(Registry.player.gun);
 			add(Registry.bullets);
+			initGround();
 			add(scoreText);
 		}
 		public function playAgain():void
@@ -55,6 +58,7 @@ package
 				Registry.player.gun.exists = false;
 			}
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
+			updateGround();
 		}
 		
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
@@ -64,10 +68,34 @@ package
 			bullet.exists = false;
 			enemy.hurt(bullet.damage);
 		}
-		
-
-		
-		
+		private function initGround():void
+		{
+			for (var i:int = 0; i < FlxG.width; i += 48)
+			{
+				var tile:GroundTile = new GroundTile(i,FlxG.height-48);
+				groundTiles.add(tile);
+				add(tile);
+			}
+		}
+		private function updateGround():void
+		{
+			var groundTile:Enemy = Enemy(groundTiles.getFirstAvailable());
+			if (groundTile)
+			{
+				var farRightTile:GroundTile;
+				var xPosition:int = 0;
+				for (var tile in groundTiles.members)
+				{
+					if (groundTiles.members[tile].x > xPosition)
+					{
+						farRightTile = tile;
+						xPosition = tile.x;
+					}
+				}
+				groundTile.x = xPosition + 48;
+				groundTile.exists = true;
+			}
+		}
 		
 	}
 
