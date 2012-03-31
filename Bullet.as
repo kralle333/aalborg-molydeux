@@ -9,7 +9,7 @@ package
 		public var damage:int;
 		public function Bullet() 
 		{
-			speed = 100;
+			speed = 400;
 			damage = 2;
 			super(0, 0, texture);
 			exists = false;

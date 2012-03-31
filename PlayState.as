@@ -8,6 +8,8 @@ package
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		override public function create():void 
 		{
+			var scoreNumber:String = "KM: ";
+			scoreNumber = scoreNumber + FlxG.score;
 			super.create();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
@@ -15,6 +17,7 @@ package
 			add(Registry.enemies);
 			add(Registry.player.gun);
 			add(Registry.bullets);
+			add(new FlxText(FlxG.width/2-100, FlxG.height/2-100, 1000, scoreNumber));
 		}
 		public function playAgain():void
 		{
@@ -34,6 +37,9 @@ package
 		override public function update():void 
 		{
 			super.update();
+			var scoreNumber:Number = FlxG.score;
+			FlxG.score++;
+			trace(FlxG.score);
 			if (FlxG.overlap(Registry.enemies, Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
