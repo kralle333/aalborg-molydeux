@@ -19,10 +19,14 @@ package
 		public function Player(userName:String) 
 		{
 			this.userName = userName;
-			super(0, 0, bodyTexture);
-			gun = new FlxSprite(0, 0, gunTexture);
+			super(0, 0);
+			this.loadGraphic(bodyTexture, true, true, 24, 64);
+			gun = new FlxSprite(0, 0,gunTexture);
 			gun.origin = new FlxPoint(4,5);
-			y = FlxG.height - height-48;
+			y = FlxG.height - height - 48;
+			addAnimation("Standing", [0]);
+			addAnimation("Jumping", [1]);
+			play("Standing");
 		}
 		
 		override public function update():void 
@@ -35,7 +39,7 @@ package
 			{
 				x -= xSpeed;
 			}
-			if (FlxG.keys.D && x + width + xSpeed < FlxG.width)
+			if (FlxG.keys.D)
 			{
 				x += xSpeed;
 			}
@@ -46,6 +50,7 @@ package
 			}
 			if (isJumping)
 			{
+				play("Jumping");
 				if (jumpHeight < maxHeight)
 				{
 					y -= ySpeed;
@@ -59,6 +64,14 @@ package
 				{
 					isJumping = false;
 				}
+			}
+			else if (falling)
+			{
+				y += ySpeed;
+			}
+			else
+			{
+				play("Standing");
 			}
 			if (FlxG.mouse.justPressed())
 			{

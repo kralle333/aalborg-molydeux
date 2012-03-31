@@ -73,6 +73,7 @@ package
 				emitter.at(Registry.player);
 				Registry.player.exists = false;
 				Registry.player.gun.exists = false;
+				
 				add(new FlxButton(330, 250, "Play Again", playAgainClick));
 				add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
 			}
@@ -86,6 +87,7 @@ package
 			}
 			else
 			{
+				
 				Registry.player.landed(false);
 			}
 		}
@@ -129,6 +131,7 @@ package
 		{
 			for (var platform in Registry.platforms)
 			{
+				
 				if (Registry.platforms.members[platform].added == false )
 				{
 					add(platform);
