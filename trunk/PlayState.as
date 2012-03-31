@@ -6,17 +6,14 @@ package
 	{
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
-
 		override public function create():void 
 		{
-			var Crosshair: Class;
-			Crosshair = crosshairSprite;
-			FlxG.mouse.load(Crosshair, 1, 0, 0);
 			super.create();
+			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			add(Registry.player);
 			add(Registry.enemies);
-			
+			add(Registry.player.gun);
 		}
 		public function playAgain():void
 		{
