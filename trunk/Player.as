@@ -19,15 +19,15 @@ package
 			this.userName = userName;
 			super(0, 0, bodyTexture);
 			gun = new FlxSprite(0, 0, gunTexture);
-			gun.origin = new FlxPoint(x, y);
+			gun.origin = new FlxPoint(4,5);
 			y = FlxG.height - height-48;
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			gun.x = this.x + width / 2;
-			gun.y = this.y + height / 2 - 5;
+			gun.x = this.x + width / 2-8;
+			gun.y = this.y + height / 2-10;
 			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
 			if (FlxG.keys.A && x-xSpeed>0)
 			{

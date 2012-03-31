@@ -8,7 +8,7 @@ package
 		{
 			super(x, y);
 			loadGraphic(ground1Texture, true, true, 48, 48);
-			addAnimation("lava", [0, 1], 5);
+			addAnimation("lava", [0, 1], 2);
 			play("lava");
 		}
 		override public function update():void 
