@@ -13,11 +13,11 @@ package
 			}
 		}
 		
-		public function fire(fx:int, fy:int):void
+		public function fire(fx:int, fy:int,velocityX:int,velocityY:int):void
 		{
 			if (getFirstAvailable())
 			{
-				Bullet(getFirstAvailable()).fire(fx, fy);
+				Bullet(getFirstAvailable()).fire(fx, fy,velocityX,velocityY);
 			}
 		}		
 	}

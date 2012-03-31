@@ -28,8 +28,7 @@ package
 			super.update();
 			gun.x = this.x + width / 2;
 			gun.y = this.y + height / 2 - 5;
-			gun.angle = FlxMath.atan2( FlxG.mouse.y-gun.y,FlxG.mouse.x-gun.x)*(180/3.14);
-			trace(gun.angle);
+			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
 			if (FlxG.keys.A && x-xSpeed>0)
 			{
 				x -= xSpeed;
@@ -61,7 +60,11 @@ package
 			}
 			if (FlxG.mouse.justReleased())
 			{
-				
+				var bulletX:int = Math.round(gun.x + gun.width * Math.cos(FlxMath.asRadians(gun.angle)));
+				var bulletY:int = Math.round(gun.y + gun.width * Math.sin(FlxMath.asRadians(gun.angle)));
+				var velocityX:int =gun.width * Math.cos(FlxMath.asRadians(gun.angle));
+				var velocityY:int =gun.width * Math.sin(FlxMath.asRadians(gun.angle));
+				Registry.bullets.fire(bulletX, bulletY,velocityX,velocityY);
 			}
 		}
 				
