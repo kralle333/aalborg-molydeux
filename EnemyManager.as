@@ -1,6 +1,6 @@
 package  
 {
-	import org.flixel.FlxGroup;
+	import org.flixel.*;
 	public class EnemyManager extends FlxGroup
 	{
 		private var enemiesAllowed:int = 10;
@@ -10,14 +10,16 @@ package
 			for (var i:int = 0; i < enemiesAllowed; i++)
 			{
 				add(new Enemy);
+				spawnEnemy();
 			}
 		}
 		public function spawnEnemy():void
 		{
 			var enemy:Enemy = Enemy(getFirstDead());
-			if (enemy)
+			if (enemy)		
 			{
 				enemy.spawn();
+				alive = true;
 				var rand:int = Math.random() * 5;
 				var color:uint;
 				switch(rand)
@@ -36,10 +38,17 @@ package
 		override public function update():void 
 		{
 			super.update();
+			enemiesAlive = this.countLiving();
 			if (enemiesAlive < enemiesAllowed)
 			{
 				spawnEnemy();
 			}
+			
+			/*if (FlxG.overlap(Registry.bullets, Registry.enemies))
+			{
+					Registry.bullets.exists = false;
+			}*/
+			
 		}
 	}
 

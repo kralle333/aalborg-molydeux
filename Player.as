@@ -12,12 +12,15 @@ package
 		private var maxHeight:int = 100;
 		private var jumpHeight:int = 0;
 		public var gun:FlxSprite;
+		public var startBar:FlxSprite;
 		[Embed(source = 'assets/player.png')] private var bodyTexture:Class;
+		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		[Embed(source = 'assets/gun.png')] private var gunTexture:Class;
 		public function Player(userName:String) 
 		{
 			this.userName = userName;
 			super(0, 0, bodyTexture);
+			startBar = new FlxBar(0, 0, 2, 100, 10, Player, "Health");
 			gun = new FlxSprite(0, 0, gunTexture);
 			gun.origin = new FlxPoint(x, y);
 			y = FlxG.height - height;
@@ -38,6 +41,10 @@ package
 				x += xSpeed;
 			}
 			if (FlxG.keys.W && !isJumping)
+			{
+				isJumping = true;
+			}
+			if (FlxG.keys.SPACE && !isJumping)
 			{
 				isJumping = true;
 			}
