@@ -72,7 +72,7 @@ package
 				var velocityX:Number =Math.cos(FlxMath.asRadians(gun.angle));
 				var velocityY:Number =Math.sin(FlxMath.asRadians(gun.angle));
 				Registry.bullets.fire(bulletX, bulletY,velocityX,velocityY);
-			}
+			} 
 		}
 				
 	}
