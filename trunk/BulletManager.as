@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.FlxCoreUtils;
 
 	public class BulletManager extends FlxGroup
 	{
@@ -17,7 +18,7 @@ package
 		{
 			if (getFirstAvailable())
 			{
-				Bullet(getFirstAvailable()).fire(fx, fy,velocityX,velocityY);
+				Bullet(getFirstAvailable()).fire(fx, fy, velocityX, velocityY);
 			}
 		}		
 	}

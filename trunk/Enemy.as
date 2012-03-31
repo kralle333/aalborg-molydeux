@@ -24,6 +24,9 @@ package
 		}
 		override public function kill():void 
 		{
+			Registry.bullets.exists =
+			exists = false;
+			alive = false;
 			super.kill();
 		}
 		override public function update():void 
