@@ -4,12 +4,15 @@ package
 	import org.flixel.*;
 	public class PlayState extends FlxState 
 	{
+		var scoreText:FlxText;
+		var kmText:String = "M: ";
+		var maxPoint:Number = 0;	
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		override public function create():void 
 		{
-			var scoreNumber:String = "KM: ";
-			scoreNumber = scoreNumber + FlxG.score;
+			
+			scoreText = new FlxText(FlxG.width/2-100, FlxG.height/2-100, 1000, kmText+maxPoint.toString());
 			super.create();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
@@ -17,7 +20,7 @@ package
 			add(Registry.enemies);
 			add(Registry.player.gun);
 			add(Registry.bullets);
-			add(new FlxText(FlxG.width/2-100, FlxG.height/2-100, 1000, scoreNumber));
+			add(scoreText);
 		}
 		public function playAgain():void
 		{
@@ -37,9 +40,12 @@ package
 		override public function update():void 
 		{
 			super.update();
-			var scoreNumber:Number = FlxG.score;
-			FlxG.score++;
-			trace(FlxG.score);
+			if ((Registry.player.x/1000) > maxPoint)
+			{
+				maxPoint = Registry.player.x / 1000;
+				scoreText.text = kmText + (Registry.player.x/2).toString();
+			}
+			
 			if (FlxG.overlap(Registry.enemies, Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
