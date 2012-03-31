@@ -30,6 +30,7 @@ package
 			add(emitter);
 			emitter.start(true, 5);
 			emitter.at(Registry.player);
+			emitter.bounce;
 			return emitter;
 		}
 		override public function update():void 
@@ -37,12 +38,11 @@ package
 			super.update();
 			if (FlxG.overlap(Registry.enemies, Registry.player, null))
 			{
-				
-				
 				FlxG.shake(0.05, 0.5,null, true, 0);
-				var emitter:FlxEmitter = createEmitter(splat,10);
+				var emitter:FlxEmitter = createEmitter(splat,20);
 				emitter.at(Registry.player);
 				
+				Registry.player.exists = false;
 			}
 		}
 		
