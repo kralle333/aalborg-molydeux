@@ -23,7 +23,7 @@ package
 			startBar = new FlxBar(0, 0, 2, 100, 10, Player, "Health");
 			gun = new FlxSprite(0, 0, gunTexture);
 			gun.origin = new FlxPoint(x, y);
-			y = FlxG.height - height;
+			y = FlxG.height - height-48;
 		}
 		
 		override public function update():void 
@@ -55,7 +55,7 @@ package
 					y -= ySpeed;
 					jumpHeight += ySpeed;
 				}
-				else if(y+height+ySpeed<FlxG.height)
+				else if(y+height+ySpeed<FlxG.height-48)
 				{
 					y += ySpeed;
 				}
