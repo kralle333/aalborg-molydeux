@@ -19,6 +19,7 @@ package
 		{
 			x = fx;
 			y = fy;
+			damage = 2;
 			this.velocity.x = velocityX*speed;
 			this.velocity.y = velocityY*speed;
 			exists = true;
