@@ -34,7 +34,7 @@ package
 			add(scoreText);
 			
 			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
-			//FlxG.camera.follow(Registry.player);
+			FlxG.camera.follow(Registry.player);
 			
 		}
 		public function playAgainClick():void
