@@ -36,7 +36,8 @@ package
 		}
 		public function playAgainClick():void
 		{
-			FlxG.switchState(new PlayState());
+			FlxG.score = 0;
+			FlxG.resetState();
 		}
 		public function mainMenuClick():void
 		{
@@ -47,6 +48,8 @@ package
 			var emitter:FlxEmitter = new FlxEmitter();
 			emitter.makeParticles(graphic,numberOfParticles, 16, false, 0);
 			add(emitter);
+			emitter.gravity = 50;	
+			emitter.maxParticleSpeed = new FlxPoint(200, 200);
 			emitter.start(true, 5);
 			emitter.at(Registry.player);
 			emitter.bounce;
