@@ -3,12 +3,11 @@ package
 	import adobe.utils.CustomActions;
 	import flash.sampler.NewObjectSample;
 	import org.flixel.*;
+	import org.flixel.plugin.photonstorm.*;
 	public class PlayState extends FlxState 
 	{
 		
 		//For highscore
-		private var kmText:String = "M: ";
-		private var maxPoint:Number = 0;
 		private var scoreText:FlxText;
 		
 		//Textures
@@ -16,25 +15,10 @@ package
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		
-		public function moveAllObjects()
-		{
-			var numX: int = 0;
-			for (var tile in Registry.groundTiles.members[tile])
-			{
-				if (Registry.groundTiles.members[tile].x )
-				{
-					Registry.groundTiles.members[tile].x = numX;
-					numX += 48;
-				}
-			}
-			
-			scoreText.x = maxPoint * 200 + 100;
-		}
-		
 		override public function create():void 
 		{
 			
-			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000, kmText + maxPoint.toString());
+			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000,"M: ");
 			scoreText.size = 100;
 			super.create();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
@@ -45,11 +29,10 @@ package
 			add(Registry.bullets);
 			add(Registry.platforms);
 			add(Registry.groundTiles);
-			initGround();
 			add(scoreText);
+			initGround();
 			
-			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
-			FlxG.camera.follow(Registry.player);
+			Registry.platforms.add(new FlxSprite(50, FlxG.height - 50, startBarTexture));
 		}
 		public function playAgainClick():void
 		{
@@ -71,16 +54,15 @@ package
 		}
 		override public function update():void 
 		{
-			moveAllObjects();
-			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
 			super.update();
-			FlxG.camera.setBounds(maxPoint*200, 0, FlxG.width, FlxG.height);
-			if ((Registry.player.x/1000) > maxPoint)
-			{
-				maxPoint = Registry.player.x / 1000;
-				scoreText.text = kmText + (Registry.player.x/2).toString();
-			}
 			
+			//For debug
+			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
+			
+			//Updating score
+			scoreText.text = "M: " + (FlxG.score.toString());
+			
+			//COLLISSION START
 			if (FlxG.overlap(Registry.enemies, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
@@ -94,8 +76,7 @@ package
 			}
 			
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
-			updateGround();
-			updatePlatforms();
+			
 			if (!FlxG.overlap(Registry.platforms, Registry.player))
 			{
 				Registry.player.landed(true);
@@ -105,6 +86,11 @@ package
 				
 				Registry.player.landed(false);
 			}
+			//COLLISSION END
+			
+			updateGround();
+			updatePlatforms();
+
 		}
 		
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
@@ -116,7 +102,7 @@ package
 		}
 		private function initGround():void
 		{
-			for (var i:int = 0; i < FlxG.width; i += 48)
+			for (var i:int = 0; i < FlxG.width+50; i += 48)
 			{
 				var tile:GroundTile = new GroundTile(i,FlxG.height-48);
 				Registry.groundTiles.add(tile);
@@ -134,8 +120,8 @@ package
 				{
 					if (Registry.groundTiles.members[tile].x > xPosition)
 					{
-						farRightTile = tile;
-						xPosition = tile.x;
+						farRightTile = Registry.groundTiles.members[tile];
+						xPosition = Registry.groundTiles.members[tile].x;
 					}
 				}
 				groundTile.x = xPosition + 48;
@@ -146,7 +132,6 @@ package
 		{
 			for (var platform in Registry.platforms)
 			{
-				
 				if (Registry.platforms.members[platform].added == false )
 				{
 					add(platform);

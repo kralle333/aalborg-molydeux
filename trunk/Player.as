@@ -19,29 +19,37 @@ package
 		public function Player(userName:String) 
 		{
 			this.userName = userName;
-			super(0, 0);
+			super(40, 0);
 			this.loadGraphic(bodyTexture, true, true, 24, 64);
 			gun = new FlxSprite(0, 0,gunTexture);
-			gun.origin = new FlxPoint(4,5);
+			gun.origin = new FlxPoint(4,4);
 			y = FlxG.height - height - 48;
+			addAnimation("Walking", [2,3,4],10);
 			addAnimation("Standing", [0]);
 			addAnimation("Jumping", [1]);
-			play("Standing");
+			
+			play("Walking");
 		}
 		
 		override public function update():void 
 		{
 			super.update();
-			gun.x = this.x + width / 2-8;
+			gun.x = this.x + width / 2-4;
 			gun.y = this.y + height / 2-10;
-			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y+17, FlxG.mouse.x - gun.x+10) * (180 / 3.14);
-			if (FlxG.keys.A && x-xSpeed>0)
+			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
+			if (FlxG.keys.A )
 			{
-				x -= xSpeed;
+				play("Walking");
 			}
-			if (FlxG.keys.D)
+			else if (FlxG.keys.D)
 			{
-				x += xSpeed;
+				Registry.moveAllObjects( -xSpeed);
+				FlxG.score += xSpeed;
+				play("Walking");
+			}
+			else
+			{
+				play("Walking");
 			}
 			if ((FlxG.keys.W ||FlxG.keys.SPACE) && !isJumping)
 			{
@@ -71,7 +79,7 @@ package
 			}
 			else
 			{
-				play("Standing");
+				play("Walking");
 			}
 			if (FlxG.mouse.justPressed())
 			{
