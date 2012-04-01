@@ -12,7 +12,7 @@ package
 		{
 			super.create();
 			
-			highScoreText = new FlxText(FlxG.width / 2, FlxG.height / 2, 1000, "");
+			highScoreText = new FlxText(FlxG.width/2-50, FlxG.height/3, 1000, "");
 			highScoreText.size = 20;
 			add(highScoreText);
 			
@@ -43,6 +43,7 @@ package
 				(_save.data.highscores as Array).reverse();
 				for (var i in _save.data.highscores) 
 				{
+					if (i > 9) { break; }
 					highScoreText.text += (i+1) +": "+_save.data.highscores[i].toString() + "\n";
 				}
 			}
