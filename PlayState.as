@@ -36,7 +36,8 @@ package
 		}
 		public function playAgainClick():void
 		{
-			FlxG.switchState(new PlayState());
+			FlxG.score = 0;
+			FlxG.resetState();
 		}
 		public function mainMenuClick():void
 		{
