@@ -43,8 +43,8 @@ package
 				(_save.data.highscores as Array).reverse();
 				for (var i in _save.data.highscores) 
 				{
+					highScoreText.text += (i + 1) +": " + _save.data.highscores[i].toString() + "\n";
 					if (i > 9) { break; }
-					highScoreText.text += (i+1) +": "+_save.data.highscores[i].toString() + "\n";
 				}
 			}
 		}
