@@ -8,6 +8,8 @@ package
 		private var highScoreButton:FlxButtonPlus;
 		override public function create():void
 		{
+			HighScoreState._save = new FlxSave();
+			HighScoreState._save.bind("MolyHighscores");
 			FlxG.mouse.show();
 			var title:FlxText = new FlxText(20, 20, 1000, "What would Molydeux 2012 game entry!");
 			title.size = 30;

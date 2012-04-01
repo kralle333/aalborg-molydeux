@@ -19,7 +19,6 @@ package
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
 			super.create();
-
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			backgroundPlace();
@@ -59,7 +58,6 @@ package
 		{
 			super.update();
 			
-			//For not debug
 			if (FlxG.keys.ENTER) { playAgainClick(); }
 			
 			//Updating score
@@ -73,7 +71,7 @@ package
 				emitter.at(Registry.player);
 				Registry.player.exists = false;
 				Registry.player.gun.exists = false;
-				if(saveHighscore(FlxG.score)){}
+				saveHighscore(FlxG.score);
 				add(new FlxButton(330, 250, "Play Again", playAgainClick));
 				add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
 			}
@@ -184,15 +182,9 @@ package
 				}
 			}
 		}
-		private function saveHighscore(highscore:Number):Boolean
+		private function saveHighscore(highscore:int):void
 		{
-			HighScore.levels = highscore;
-			
-			//Hvis highscore er større end 9 af de tidligere 10 highscores - så tilføj
-			/////////////////////////////////////////////////////////////////////--- MAKE THIS!!!!
-			if (highscore) { };
-			
-			return true;
+			HighScoreState.onSave(highscore);			
 		}
 	}
 
