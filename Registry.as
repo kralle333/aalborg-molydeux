@@ -1,6 +1,7 @@
 package  
 {
 	import org.flixel.FlxGroup;
+	import org.flixel.FlxSprite;
 	public class Registry 
 	{
 		public static var player:Player;
@@ -9,10 +10,12 @@ package
 		public static var groundTiles:FlxGroup;
 		public static var platforms:FlxGroup;
 		public static var cameraX:int;
+		public static var background:FlxGroup;
 		
 		public static function init():void
 		{
 			player = new Player("Dudebro");
+			background = new FlxGroup();
 			enemies = new EnemyManager();
 			bullets = new BulletManager();
 			groundTiles = new FlxGroup();
@@ -31,6 +34,10 @@ package
 			for (var enemy in enemies.members)
 			{
 				enemies.members[enemy].x += x;
+			}
+			for (var backgrounds in background.members) 
+			{
+				background.members[backgrounds].x += x;
 			}
 		}
 	}
