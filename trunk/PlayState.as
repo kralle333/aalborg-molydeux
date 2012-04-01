@@ -9,6 +9,8 @@ package
 		
 		//For highscore
 		private var scoreText:FlxText;
+		private var musicOffButton:FlxButton;
+		private var musicOnButton:FlxButton;
 		//Textures
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
@@ -16,6 +18,8 @@ package
 
 		override public function create():void 
 		{
+			musicOffButton = new FlxButton(700, 10, "Music off", musicOff);
+			musicOnButton = new FlxButton(700, 10, "Music on", musicOn);
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
 			super.create();
@@ -29,6 +33,9 @@ package
 			add(Registry.bullets);
 			add(Registry.platforms);
 			add(Registry.groundTiles);
+			
+			add(musicOnButton);
+			add(musicOffButton);
 			initGround();
 			
 			Registry.startBar = new FlxSprite(Registry.player.xBounds + 3, FlxG.height - 50, startBarTexture);
@@ -58,7 +65,6 @@ package
 		override public function update():void 
 		{
 			super.update();
-			
 			if (FlxG.keys.ENTER) { playAgainClick(); }
 			
 			//Updating score
@@ -186,6 +192,17 @@ package
 		private function saveHighscore(highscore:int):void
 		{
 			HighScoreState.onSave(highscore);			
+		}
+		private function musicOff():void
+		{
+			FlxG.music.volume = 0;
+		}
+		private function musicOn():void
+		{
+			FlxG.music.resume;
+			musicOffButton.exists = true;
+			musicOnButton.exists = false;
+			
 		}
 	}
 
