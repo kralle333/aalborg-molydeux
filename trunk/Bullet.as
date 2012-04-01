@@ -27,12 +27,12 @@ package
 		override public function update():void 
 		{
 			super.update();
-			/*if (exists)
+			if (exists)
 			{
 				if (x > FlxG.width) { exists = false; }
 				if (y > FlxG.height) { exists = false; }
 				if (x < 0 || y < 0) { exists = false; }
-			}*/
+			}
 			
 		}
 	}		

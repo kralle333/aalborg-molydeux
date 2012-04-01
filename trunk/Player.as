@@ -14,13 +14,14 @@ package
 		private var maxHeight:int = 100;
 		private var jumpHeight:int = 0;
 		public var gun:FlxSprite;
+		public var xBounds:int = 100;
 		
 		[Embed(source = 'assets/player.png')] private var bodyTexture:Class;
 		[Embed(source = 'assets/gun.png')] private var gunTexture:Class;
 		public function Player(userName:String) 
 		{
 			this.userName = userName;
-			super(40, 0);
+			super(xBounds, 0);
 			this.loadGraphic(bodyTexture, true, true, 24, 64);
 			gun = new FlxSprite(0, 0,gunTexture);
 			gun.origin = new FlxPoint(4,4);
@@ -37,15 +38,23 @@ package
 			gun.x = this.x + width / 2-4;
 			gun.y = this.y + height / 2-10;
 			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
-			if (FlxG.keys.A && currentAnimation != 2)
+			if (FlxG.keys.A && currentAnimation != 2 &&x-xSpeed>0)
 			{
 				play("Walking");
 				currentAnimation = 2;
+				x -= xSpeed;
 			}
 			else if (FlxG.keys.D)
 			{
-				Registry.moveAllObjects( -xSpeed);
-				FlxG.score += xSpeed;
+				if (x + xSpeed < xBounds)
+				{
+					x += xSpeed;
+				}
+				else
+				{
+					Registry.moveAllObjects( -xSpeed);
+					FlxG.score += xSpeed;
+				}
 				play("Walking");
 				currentAnimation = 2;
 			}
