@@ -8,7 +8,6 @@ package
 		{
 			super.create();
 			var fda:FlxSave = new FlxSave();
-			fda.data.
 		}
 		
 	}
