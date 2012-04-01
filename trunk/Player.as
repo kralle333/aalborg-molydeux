@@ -36,7 +36,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-			gun.x = this.x + width / 2-4;
+			gun.x = this.x + width / 2-5;
 			gun.y = this.y + height / 2-10;
 			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
 			if (FlxG.keys.A && currentAnimation != 2 &&x-xSpeed>0)
