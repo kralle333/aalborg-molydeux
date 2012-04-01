@@ -35,7 +35,6 @@ package
 			
 			Registry.platforms.add(new FlxSprite(10, FlxG.height - 50, startBarTexture));
 			FlxG.camera.follow(Registry.player);
-			
 		}
 		public function playAgainClick():void
 		{
@@ -59,6 +58,7 @@ package
 		{
 			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
 			super.update();
+			FlxG.camera.setBounds(maxPoint*200, 0, FlxG.width, FlxG.height);
 			if ((Registry.player.x/1000) > maxPoint)
 			{
 				maxPoint = Registry.player.x / 1000;
