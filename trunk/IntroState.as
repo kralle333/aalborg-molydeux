@@ -36,7 +36,7 @@ package
 					titlesShown = true;
 				}
 			}
-			if (timer.finished || FlxG.keys.ENTER || FlxG.keys.ESCAPE || FlxG.keys.SPACE)
+			if (timer.finished || FlxG.keys.ENTER || FlxG.keys.ESCAPE || FlxG.keys.SPACE || FlxG.mouse.justReleased())
 			{
 				FlxG.switchState(new MainMenuState());
 			}
