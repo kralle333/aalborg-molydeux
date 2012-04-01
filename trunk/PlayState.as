@@ -18,8 +18,7 @@ package
 
 		override public function create():void 
 		{
-			musicOffButton = new FlxButton(700, 10, "Music off", musicOff);
-			musicOnButton = new FlxButton(700, 10, "Music on", musicOn);
+			musicOffButton = new FlxButton(700, 10, "Music Off", musicOff);
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
 			super.create();
@@ -33,8 +32,7 @@ package
 			add(Registry.bullets);
 			add(Registry.platforms);
 			add(Registry.groundTiles);
-			
-			add(musicOnButton);
+		
 			add(musicOffButton);
 			initGround();
 			
@@ -66,7 +64,6 @@ package
 		{
 			super.update();
 			if (FlxG.keys.ENTER) { playAgainClick(); }
-			
 			//Updating score
 			scoreText.text = "Distance: " + (FlxG.score.toString());
 			
@@ -195,14 +192,16 @@ package
 		}
 		private function musicOff():void
 		{
-			FlxG.music.volume = 0;
-		}
-		private function musicOn():void
-		{
-			FlxG.music.resume;
-			musicOffButton.exists = true;
-			musicOnButton.exists = false;
-			
+			if (FlxG.music.volume == 0)
+			{
+				musicOffButton.label.text = "Music Off";
+				FlxG.music.volume = 1;
+			}
+			else
+			{
+				musicOffButton.label.text = "Music On";
+				FlxG.music.volume = 0;
+			}
 		}
 	}
 
