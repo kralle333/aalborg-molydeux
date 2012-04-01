@@ -35,12 +35,13 @@ package
 					typesAvaible++;
 				}
 			}
-			if (FlxG.score !=0 && FlxG.score%5000 == 0)
+			if (FlxG.score !=0 && FlxG.score%1000 == 0)
 			{
 				if (typesAvaible == 2)
 				{
 					typesAvaible++;
 				}
+				typesAvaible++;
 			}
 			enemiesAlive = this.countLiving();
 			if (enemiesAlive < enemiesAllowed)

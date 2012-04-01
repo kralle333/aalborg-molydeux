@@ -5,6 +5,7 @@ package
 	public class Enemy extends FlxSprite
 	{	
 		[Embed(source = 'assets/enemy1.png')] private var enemy1:Class;
+		[Embed(source = 'assets/enemy2.png')] private var enemy2:Class;
 		private var isDead:Boolean = false;
 		private var type:int = 0;
 		private var inAir:Boolean = false;
@@ -32,12 +33,14 @@ package
 			alive = true;
 			exists = true;
 			health = 2;
+			angularVelocity = 0;
 			type = Math.round(Math.random() * (typesAvailable-1));
 			switch(type)
 			{
-				case 0: color = 0xFFFFFFFF; break;
-				case 1: color = 0xFFFF0000; break;
-				case 2: color = 0xFF00FFFF; health = 8; break;
+				case 0: color = 0xFFFFFFFF;loadGraphic(enemy1, true,true,24, 64); break;
+				case 1: color = 0xFFFF0000;loadGraphic(enemy1, true,true,24, 64); break;
+				case 2: color = 0xFF00FFFF;loadGraphic(enemy1, true,true,24, 64); health = 8; break;
+				case 3:  color = 0xFFFFFFFF;y = 100; loadGraphic(enemy2, false, false, 64, 64); angularVelocity = Math.random() * 100+100; break;
 			}
 		}
 		override public function hurt(damage:Number):void 
@@ -77,6 +80,10 @@ package
 					}
 				}
 			}
+			if (type == 3)
+			{
+				y-=Math.random()*2-2
+			}
 			if (x + width < 0)
 			{
 				isDead = true;
@@ -95,7 +102,14 @@ package
 					exists = false;
 					alive = false;
 					isDead = false;
-					Registry.platforms.add(new CorpsePlatform("corpse",x,FlxG.height - height - 40+50));
+					var corpsePosition:int = FlxG.height - height - 40 + 50;
+					var stringType:String = "Corpse";
+					if (type == 3)
+					{
+						stringType = "corpseBounce";
+						corpsePosition -= 10;
+					}
+					Registry.platforms.add(new CorpsePlatform(stringType,x,corpsePosition));
 				}
 			}
 		}
