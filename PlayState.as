@@ -32,7 +32,7 @@ package
 			add(Registry.groundTiles);
 			add(scoreText);
 			initGround();
-			Registry.platforms.add(new FlxSprite(50, FlxG.height - 50, startBarTexture));
+			Registry.platforms.add(new FlxSprite(Registry.player.xBounds+3, FlxG.height - 50, startBarTexture));
 		}
 		public function playAgainClick():void
 		{
