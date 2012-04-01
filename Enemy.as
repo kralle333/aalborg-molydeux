@@ -32,7 +32,6 @@ package
 			alive = true;
 			exists = true;
 			health = 2;
-			trace(typesAvailable);
 			type = Math.round(Math.random() * (typesAvailable-1));
 			switch(type)
 			{

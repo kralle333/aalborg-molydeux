@@ -17,20 +17,20 @@ package
 		override public function create():void 
 		{
 			
-			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000,"M: ");
-			scoreText.size = 100;
+			scoreText = new FlxText(20, 20, 1000,"Distance: ");
+			scoreText.size = 60;
 			super.create();
 
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			backgroundPlace();
+			add(scoreText);
 			add(Registry.player);
 			add(Registry.enemies);
 			add(Registry.player.gun);
 			add(Registry.bullets);
 			add(Registry.platforms);
 			add(Registry.groundTiles);
-			add(scoreText);
 			initGround();
 			
 			Registry.platforms.add(new FlxSprite(Registry.player.xBounds+3, FlxG.height - 50, startBarTexture));
@@ -62,7 +62,7 @@ package
 			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
 			
 			//Updating score
-			scoreText.text = "M: " + (FlxG.score.toString());
+			scoreText.text = "Distance: " + (FlxG.score.toString());
 			
 			//COLLISSION START
 			if (FlxG.overlap(Registry.enemies, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
