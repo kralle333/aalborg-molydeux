@@ -28,7 +28,7 @@ package
 		
 		private function clickHighScore():void
 		{
-	
+			FlxG.switchState(new HighScoreState());
 		}
 	}
 }

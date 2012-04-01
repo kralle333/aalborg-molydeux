@@ -9,7 +9,6 @@ package
 		public static var bullets:BulletManager;
 		public static var groundTiles:FlxGroup;
 		public static var platforms:FlxGroup;
-		public static var cameraX:int;
 		public static var background:FlxGroup;
 		public static var startBar:FlxSprite;
 		
@@ -33,13 +32,15 @@ package
 			{
 				platforms.members[platform].x += x;
 			}
-			for (var enemy in enemies.members)
-			{
-				enemies.members[enemy].x += x;
-			}
+			
 			for (var backgrounds in background.members) 
 			{
 				Registry.background.members[backgrounds].x += x;
+			}
+			for (var enemy in enemies.members)
+			{
+				//trace(enemies.members[enemy].x);
+				enemies.members[enemy].x += x;
 			}
 			startBar.x += x;
 		}
