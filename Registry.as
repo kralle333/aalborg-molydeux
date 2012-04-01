@@ -37,7 +37,7 @@ package
 			}
 			for (var backgrounds in background.members) 
 			{
-				background.members[backgrounds].x += x;
+				Registry.background.members[backgrounds].x += x;
 			}
 		}
 	}
