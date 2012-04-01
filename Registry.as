@@ -11,6 +11,7 @@ package
 		public static var platforms:FlxGroup;
 		public static var cameraX:int;
 		public static var background:FlxGroup;
+		public static var startBar:FlxSprite;
 		
 		public static function init():void
 		{
@@ -20,6 +21,7 @@ package
 			bullets = new BulletManager();
 			groundTiles = new FlxGroup();
 			platforms = new FlxGroup();
+			startBar = new FlxSprite(0, 0);
 		}
 		public static function moveAllObjects(x:int):void
 		{
@@ -39,6 +41,7 @@ package
 			{
 				Registry.background.members[backgrounds].x += x;
 			}
+			startBar.x += x;
 		}
 	}
 

@@ -33,7 +33,8 @@ package
 			add(Registry.groundTiles);
 			initGround();
 			
-			Registry.platforms.add(new FlxSprite(Registry.player.xBounds+3, FlxG.height - 50, startBarTexture));
+			Registry.startBar = new FlxSprite(Registry.player.xBounds + 3, FlxG.height - 50, startBarTexture);
+			add(Registry.startBar);
 		}
 		public function playAgainClick():void
 		{
@@ -79,22 +80,35 @@ package
 			
 			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
 			
-			if (!FlxG.overlap(Registry.platforms, Registry.player))
+			
+			if(FlxG.overlap(Registry.startBar, Registry.player) || FlxG.overlap(Registry.platforms, Registry.player))
 			{
-				Registry.player.landed(true);
+				Registry.player.landed(false);
 			}
 			else
 			{
-				
-				Registry.player.landed(false);
+				Registry.player.landed(true);
 			}
+			FlxG.overlap(Registry.platforms, Registry.player,corpseCollision)
 			//COLLISSION END
 			
 			updateGround();
 			updatePlatforms();
 
 		}
-		
+		public function corpseCollision(platformHit:FlxObject,player:FlxObject):void
+		{
+			
+			var platform:CorpsePlatform = CorpsePlatform(platformHit);
+			if (platform.type == "corpseBounce")
+			{
+				Registry.player.landed(true);
+			}
+			else
+			{
+				Registry.player.landed(false);
+			}
+		}
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
 		{
 			var enemy:Enemy =  Enemy(enemyHit);
