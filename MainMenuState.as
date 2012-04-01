@@ -6,6 +6,7 @@ package
 	{
 		private var playButton:FlxButtonPlus;
 		private var highScoreButton:FlxButtonPlus;
+				[Embed(source = 'assets/molymusic.mp3')] private var molyMusic:Class;
 		override public function create():void
 		{
 			HighScoreState._save = new FlxSave();
@@ -24,11 +25,14 @@ package
 		private function clickPlayGame():void
 		{
 			FlxG.switchState(new PlayState());
+			FlxG.playMusic(molyMusic);
+			
 		}
 		
 		private function clickHighScore():void
 		{
 			FlxG.switchState(new HighScoreState());
+			
 		}
 	}
 }
