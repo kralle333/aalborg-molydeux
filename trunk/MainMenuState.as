@@ -5,6 +5,7 @@ package
 	{
 		private var playButton:FlxButton;
 		private var highScoreButton:FlxButton;
+		[Embed(source = 'assets/gameTitle.png')] private var gameTitleTexture:Class;
 		override public function create():void
 		{
 			FlxG.mouse.show();

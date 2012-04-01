@@ -20,10 +20,10 @@ package
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000,"M: ");
 			scoreText.size = 100;
 			super.create();
-			
-			backgroundPlace();
+
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
+			backgroundPlace();
 			add(Registry.player);
 			add(Registry.enemies);
 			add(Registry.player.gun);
@@ -32,6 +32,7 @@ package
 			add(Registry.groundTiles);
 			add(scoreText);
 			initGround();
+			
 			Registry.platforms.add(new FlxSprite(Registry.player.xBounds+3, FlxG.height - 50, startBarTexture));
 		}
 		public function playAgainClick():void
@@ -115,9 +116,9 @@ package
 				
 				for (var i:int = 0; i <FlxG.width+400; i+=400) 
 				{
-					
-				var backgroundVar:Background = new Background(i,0);
-				add(backgroundVar);
+					var backgroundVar:Background = new Background(i,0);
+					add(backgroundVar);
+					Registry.background.add(backgroundVar);
 				}
 			
 		}
