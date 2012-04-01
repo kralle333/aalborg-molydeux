@@ -10,17 +10,18 @@ package
 		//For highscore
 		private var scoreText:FlxText;
 		//Textures
-		[Embed(source = 'assets/background.png')]private var background1:Class;
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		
 		override public function create():void 
 		{
-			add(new FlxSprite(0,0,background1));
+			
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000,"M: ");
 			scoreText.size = 100;
 			super.create();
+			
+			backgroundPlace();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			add(Registry.player);
@@ -31,7 +32,6 @@ package
 			add(Registry.groundTiles);
 			add(scoreText);
 			initGround();
-			
 			Registry.platforms.add(new FlxSprite(50, FlxG.height - 50, startBarTexture));
 		}
 		public function playAgainClick():void
@@ -109,6 +109,17 @@ package
 				Registry.groundTiles.add(tile);
 				add(tile);
 			}
+		}
+		private function backgroundPlace():void
+		{
+				
+				for (var i:int = 0; i <FlxG.width+400; i+=400) 
+				{
+					
+				var backgroundVar:Background = new Background(i,0);
+				add(backgroundVar);
+				}
+			
 		}
 		private function updateGround():void
 		{
