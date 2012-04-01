@@ -16,6 +16,21 @@ package
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		
+		public function moveAllObjects()
+		{
+			var numX: int = 0;
+			for (var tile in Registry.groundTiles.members[tile])
+			{
+				if (Registry.groundTiles.members[tile].x )
+				{
+					Registry.groundTiles.members[tile].x = numX;
+					numX += 48;
+				}
+			}
+			
+			scoreText.x = maxPoint * 200 + 100;
+		}
+		
 		override public function create():void 
 		{
 			
@@ -56,6 +71,7 @@ package
 		}
 		override public function update():void 
 		{
+			moveAllObjects();
 			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
 			super.update();
 			FlxG.camera.setBounds(maxPoint*200, 0, FlxG.width, FlxG.height);
