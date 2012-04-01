@@ -5,6 +5,7 @@ package
 	
 	public class Player extends FlxSprite
 	{
+		private var currentAnimation:int = 0;
 		private var userName:String;
 		private var xSpeed:int = 5;
 		private var ySpeed:int = 2;
@@ -24,11 +25,10 @@ package
 			gun = new FlxSprite(0, 0,gunTexture);
 			gun.origin = new FlxPoint(4,4);
 			y = FlxG.height - height - 48;
-			addAnimation("Walking", [2,3,4],10);
 			addAnimation("Standing", [0]);
 			addAnimation("Jumping", [1]);
-			
-			play("Walking");
+			addAnimation("Walking", [2,3,4,5],10);
+			play("Standing");
 		}
 		
 		override public function update():void 
@@ -37,19 +37,22 @@ package
 			gun.x = this.x + width / 2-4;
 			gun.y = this.y + height / 2-10;
 			gun.angle = FlxMath.atan2( FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
-			if (FlxG.keys.A )
+			if (FlxG.keys.A && currentAnimation != 2)
 			{
 				play("Walking");
+				currentAnimation = 2;
 			}
 			else if (FlxG.keys.D)
 			{
 				Registry.moveAllObjects( -xSpeed);
 				FlxG.score += xSpeed;
 				play("Walking");
+				currentAnimation = 2;
 			}
-			else
+			else if(currentAnimation != 0)
 			{
-				play("Walking");
+				play("Standing");
+				currentAnimation = 0;
 			}
 			if ((FlxG.keys.W ||FlxG.keys.SPACE) && !isJumping)
 			{
@@ -58,7 +61,11 @@ package
 			}
 			if (isJumping)
 			{
-				play("Jumping");
+				if (currentAnimation != 1)
+				{
+					play("Jumping");
+				}
+				
 				if (jumpHeight < maxHeight)
 				{
 					y -= ySpeed;
@@ -77,9 +84,9 @@ package
 			{
 				y += ySpeed;
 			}
-			else
+			else if(currentAnimation != 2)
 			{
-				play("Walking");
+				play("Standing");
 			}
 			if (FlxG.mouse.justPressed())
 			{
