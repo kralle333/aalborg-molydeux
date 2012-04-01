@@ -14,7 +14,6 @@ package
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 
-		
 		override public function create():void 
 		{
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");

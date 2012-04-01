@@ -16,7 +16,7 @@ package
 		{
 			player = new Player("Dudebro");
 			background = new FlxGroup();
-			enemies = new EnemyManager();
+			enemies = new EnemyManager(1);
 			bullets = new BulletManager();
 			groundTiles = new FlxGroup();
 			platforms = new FlxGroup();

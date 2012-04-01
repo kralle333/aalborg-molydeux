@@ -12,6 +12,7 @@ package
 		private var maxHeight:int = 100;
 		private var currentMaxHeight:int = 0;
 		private var jumpHeight:int = 0;
+		private var bouncing:Boolean = false;
 		public function Enemy()
 		{
 			super(-200, 0, enemy1);
@@ -23,8 +24,11 @@ package
 		}
 		public function spawn(typesAvailable:int):void
 		{
-			velocity.x = -Math.random() * 200-50;
-			x = FlxG.width+Registry.player.x;
+			velocity.x = -Math.random() * 200 - 50;
+			if (Registry.player != null)
+			{
+				x = FlxG.width + Registry.player.x;
+			}
 			y = FlxG.height - height - 40;
 			inAir = false;
 			jumpHeight = 0;
@@ -34,6 +38,7 @@ package
 			exists = true;
 			health = 2;
 			angularVelocity = 0;
+			bouncing = false;
 			type = Math.round(Math.random() * (typesAvailable-1));
 			switch(type)
 			{
@@ -82,7 +87,23 @@ package
 			}
 			if (type == 3)
 			{
-				y-=Math.random()*2-2
+				
+				if (y + height >FlxG.height - 60)
+				{
+					bouncing = true;
+				}
+				if (bouncing)
+				{
+					y -=5;
+					if (y + height < FlxG.height / 2)
+					{
+						bouncing = false;
+					}
+				}
+				else
+				{
+					y -= Math.random() * 2 - 2
+				}
 			}
 			if (x + width < 0)
 			{
@@ -109,7 +130,10 @@ package
 						stringType = "corpseBounce";
 						corpsePosition -= 10;
 					}
-					Registry.platforms.add(new CorpsePlatform(stringType,x,corpsePosition));
+					if (Registry.platforms != null)
+					{
+						Registry.platforms.add(new CorpsePlatform(stringType, x, corpsePosition));
+					}
 				}
 			}
 		}

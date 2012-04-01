@@ -5,9 +5,10 @@ package
 	{
 		private var enemiesAllowed:int = 5;
 		private var enemiesAlive:int = 0;
-		private var typesAvaible:int = 1;
-		public function EnemyManager()
+		public var typesAvaible:int = 1;
+		public function EnemyManager(types:int)
 		{
+			typesAvaible = types;
 			for (var i:int = 0; i < enemiesAllowed; i++)
 			{
 				add(new Enemy);
