@@ -13,7 +13,7 @@ package
 		{
 			super.create();
 			timer = new FlxTimer();
-			title = new FlxText(20, 20, 1000, "Dan Duus Toisen \nKristian Pilegaard Jensen\nPresents: ");
+			title = new FlxText(20, 20, 1000, "Dan Duus Thøisen \nKristian Pilegaard Jensen\nPresents: ");
 			title.size = 40;
 			title.alpha = 0;
 			add(title);
