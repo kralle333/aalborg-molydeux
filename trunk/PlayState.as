@@ -13,12 +13,14 @@ package
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
+		[Embed(source = 'assets/molymusic.mp3')] private var molyMusic:Class;
 		
 		override public function create():void 
 		{
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
 			super.create();
+			FlxG.playMusic(molyMusic);
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			backgroundPlace();
