@@ -42,6 +42,7 @@ package
 		}
 		public function mainMenuClick():void
 		{
+			FlxG.score = 0;
 			FlxG.switchState(new MainMenuState());
 		}
 		private function createEmitter(graphic:Class,numberOfParticles:int):FlxEmitter
