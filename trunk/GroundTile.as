@@ -21,7 +21,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-			if (x + width < Registry.cameraX)
+			if (x + width < 0)
 			{
 				exists = false;
 			}

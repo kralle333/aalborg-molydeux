@@ -16,7 +16,6 @@ package
 		
 		override public function create():void 
 		{
-			
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
 			super.create();
@@ -59,8 +58,8 @@ package
 		{
 			super.update();
 			
-			//For debug
-			if (FlxG.keys.ENTER) { FlxG.switchState(new PlayState()); }
+			//For not debug
+			if (FlxG.keys.ENTER) { playAgainClick(); }
 			
 			//Updating score
 			scoreText.text = "Distance: " + (FlxG.score.toString());
@@ -73,7 +72,7 @@ package
 				emitter.at(Registry.player);
 				Registry.player.exists = false;
 				Registry.player.gun.exists = false;
-				
+				if(saveHighscore(FlxG.score)){}
 				add(new FlxButton(330, 250, "Play Again", playAgainClick));
 				add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
 			}
@@ -91,7 +90,7 @@ package
 			}
 			FlxG.overlap(Registry.platforms, Registry.player,corpseCollision)
 			//COLLISSION END
-			
+			updateBackground();
 			updateGround();
 			updatePlatforms();
 
@@ -136,6 +135,25 @@ package
 				}
 			
 		}
+		private function updateBackground():void
+		{
+			var backgroundSprite:Background = Background(Registry.background.getFirstAvailable());
+			if (backgroundSprite)
+			{
+				var farRightTile:Background;
+				var xPosition:int = 0;
+				for (var backgrounds in Registry.background.members)
+				{
+					if (Registry.background.members[backgrounds].x > xPosition)
+					{
+						farRightTile = Registry.background.members[backgrounds];
+						xPosition = Registry.background.members[backgrounds].x;
+					}
+				}
+				backgroundSprite.x = xPosition + 400;
+				backgroundSprite.exists = true;
+			}
+		}
 		private function updateGround():void
 		{
 			var groundTile:GroundTile = GroundTile(Registry.groundTiles.getFirstAvailable());
@@ -164,6 +182,16 @@ package
 					add(platform);
 				}
 			}
+		}
+		private function saveHighscore(highscore:Number):Boolean
+		{
+			HighScore.levels = highscore;
+			
+			//Hvis highscore er større end 9 af de tidligere 10 highscores - så tilføj
+			/////////////////////////////////////////////////////////////////////--- MAKE THIS!!!!
+			if (highscore) { };
+			
+			return true;
 		}
 	}
 

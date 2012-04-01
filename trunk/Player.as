@@ -15,6 +15,7 @@ package
 		private var jumpHeight:int = 0;
 		public var gun:FlxSprite;
 		public var xBounds:int = 100;
+		private var save:FlxSave = new FlxSave();
 		
 		[Embed(source = 'assets/player.png')] private var bodyTexture:Class;
 		[Embed(source = 'assets/gun.png')] private var gunTexture:Class;
