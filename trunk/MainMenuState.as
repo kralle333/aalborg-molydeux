@@ -6,14 +6,12 @@ package
 	{
 		private var playButton:FlxButtonPlus;
 		private var highScoreButton:FlxButtonPlus;
-		[Embed(source = 'assets/gameTitle.png')] private var gameTitleTexture:Class;
 		override public function create():void
 		{
 			FlxG.mouse.show();
-			add(new FlxSprite(FlxG.width / 2 - 250, 0, gameTitleTexture));
-			var title:FlxText = new FlxText(FlxG.width / 2 - 125, 0, 1000, "!");
-			title.size = 50;
-			//add(title);
+			var title:FlxText = new FlxText(20, 20, 1000, "What would Molydeux 2012 game entry!");
+			title.size = 30;
+			add(title);
 			playButton = new FlxButtonPlus(0, 100, clickPlayGame, null, "Play Game", 200, 20 )
 			playButton.x = FlxG.width / 2 - playButton.width / 2;
 			add(playButton);
