@@ -11,12 +11,15 @@ package
 		override public function create():void 
 		{
 			super.create();
-			
-			highScoreText = new FlxText(FlxG.width/2-50, FlxG.height/3, 1000, "");
-			highScoreText.size = 20;
+			var scores:Array = (_save.data.highscores as Array).sort();
+			scores = scores.reverse();
+			_save.data.highscores = new Array();
+			_save.data.highscores = scores;
+			highScoreText = new FlxText(FlxG.width/2-90, 20, 1000, "High Scores: \n\n");
+			highScoreText.size = 25;
 			add(highScoreText);
 			
-			mainMenu = new FlxButtonPlus(0, 130, clickMainMenu, null, "Main Menu", 200, 20 );
+			mainMenu = new FlxButtonPlus(0, FlxG.height-30, clickMainMenu, null, "Main Menu", 200, 20 );
 			mainMenu.x = FlxG.width / 2 - 100;
 			add(mainMenu);
 			onLoad();
@@ -39,12 +42,10 @@ package
 			}
 			else
 			{
-				(_save.data.highscores as Array).sort();
-				(_save.data.highscores as Array).reverse();
 				for (var i in _save.data.highscores) 
 				{
-					highScoreText.text += (i + 1) +": " + _save.data.highscores[i].toString() + "\n";
 					if (i > 9) { break; }
+					highScoreText.text += "    "+(i+1) +": "+_save.data.highscores[i].toString() + "\n";
 				}
 			}
 		}
