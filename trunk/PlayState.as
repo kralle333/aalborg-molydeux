@@ -9,15 +9,15 @@ package
 		
 		//For highscore
 		private var scoreText:FlxText;
-		
 		//Textures
+		[Embed(source = 'assets/background.png')]private var background1:Class;
 		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
 		[Embed(source = 'assets/splat.png')]private var splat:Class;
 		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
 		
 		override public function create():void 
 		{
-			
+			add(new FlxSprite(0,0,background1));
 			scoreText = new FlxText(FlxG.width / 2 - 300, FlxG.height / 2 - 100, 1000,"M: ");
 			scoreText.size = 100;
 			super.create();
@@ -36,8 +36,7 @@ package
 		}
 		public function playAgainClick():void
 		{
-			FlxG.score = 0;
-			FlxG.resetState();
+			FlxG.switchState(new PlayState());
 		}
 		public function mainMenuClick():void
 		{
@@ -48,8 +47,6 @@ package
 			var emitter:FlxEmitter = new FlxEmitter();
 			emitter.makeParticles(graphic,numberOfParticles, 16, false, 0);
 			add(emitter);
-			emitter.gravity = 50;	
-			emitter.maxParticleSpeed = new FlxPoint(200, 200);
 			emitter.start(true, 5);
 			emitter.at(Registry.player);
 			emitter.bounce;
