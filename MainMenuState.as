@@ -46,6 +46,7 @@ package
 		}
 		override public function update():void 
 		{
+			
 			for (var enemy in enemies.members) 
 			{
 				if (enemies.members[enemy].x <= 400)
