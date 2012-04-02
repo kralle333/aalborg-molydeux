@@ -1,4 +1,4 @@
-package  
+package gameclasses
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*
@@ -17,8 +17,8 @@ package
 		public var xBounds:int = 100;
 		private var save:FlxSave = new FlxSave();
 		
-		[Embed(source = 'assets/player.png')] private var bodyTexture:Class;
-		[Embed(source = 'assets/gun.png')] private var gunTexture:Class;
+		[Embed(source = '../../assets/player.png')] private var bodyTexture:Class;
+		[Embed(source = '../../assets/gun.png')] private var gunTexture:Class;
 		public function Player(userName:String) 
 		{
 			this.userName = userName;

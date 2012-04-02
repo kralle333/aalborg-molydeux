@@ -1,4 +1,4 @@
-package  
+package gameclasses
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.FlxCoreUtils;

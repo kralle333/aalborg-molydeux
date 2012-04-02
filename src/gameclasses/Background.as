@@ -1,10 +1,10 @@
-package  
+package gameclasses
 {
 	import org.flixel.FlxSprite;
 	public class Background extends FlxSprite 
 	{
 		
-		[Embed(source = 'assets/background.png')] private var backgroundSprite:Class;
+		[Embed(source = '../../assets/background.png')] private var backgroundSprite:Class;
 		public function Background(x:int, y:int) 
 		{
 			super(x, y);

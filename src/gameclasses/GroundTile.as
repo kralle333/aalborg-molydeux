@@ -1,9 +1,9 @@
-package  
+package gameclasses
 {
 	import org.flixel.FlxSprite;
 	public class GroundTile extends FlxSprite
 	{
-		[Embed(source = 'assets/ground1.png')] private var ground1Texture:Class;
+		[Embed(source = '../../assets/ground1.png')] private var ground1Texture:Class;
 		public function GroundTile(x:int,y:int) 
 		{
 			super(x, y);

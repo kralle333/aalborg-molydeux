@@ -1,11 +1,11 @@
-package  
+package enemies
 {
 	import org.flixel.*;
-	
+	import gameclasses.*
 	public class Enemy extends FlxSprite
 	{	
-		[Embed(source = 'assets/enemy1.png')] private var enemy1:Class;
-		[Embed(source = 'assets/enemy2.png')] private var enemy2:Class;
+		[Embed(source = '../../assets/enemy1.png')] private var enemy1:Class;
+		[Embed(source = '../../assets/enemy2.png')] private var enemy2:Class;
 		private var isDead:Boolean = false;
 		private var type:int = 0;
 		private var inAir:Boolean = false;
@@ -59,32 +59,7 @@ package
 		override public function update():void 
 		{
 			super.update();
-			if (type == 1)
-			{
-				if (!inAir && y == FlxG.height - height - 40)
-				{
-					inAir = true;
-					currentMaxHeight = Math.random() * maxHeight + 100
-				}
-				else if (inAir)
-				{
-					if (currentMaxHeight > jumpHeight)
-					{
-						jumpHeight += 2;
-						y -= 2;
-					}
-					else if(y < FlxG.height - height - 40)
-					{
-						y += 2;
-					}
-					else
-					{
-						y = FlxG.height - height - 40
-						inAir = false;
-						jumpHeight = 0;
-					}
-				}
-			}
+			
 			if (type == 3)
 			{
 				
@@ -135,8 +110,13 @@ package
 						Registry.platforms.add(new CorpsePlatform(stringType, x, corpsePosition));
 					}
 				}
-			}
+			}			
 		}
+					//Enemies override this
+			public function move():void
+			{
+				
+			}
 	}
 
 }

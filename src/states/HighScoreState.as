@@ -1,4 +1,4 @@
-package  
+package states
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
@@ -7,7 +7,6 @@ package
 		private var mainMenu:FlxButtonPlus;
 		public static var highScoreText:FlxText;
 		public static var _save:FlxSave;
-		public static var text:HighScore = new HighScore();
 		override public function create():void 
 		{
 			super.create();

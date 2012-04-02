@@ -1,10 +1,12 @@
-package  
+package states
 {
 	import adobe.utils.CustomActions;
 	import flash.sampler.NewObjectSample;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
 	import org.flixel.plugin.photonstorm.API.FlxKongregate;
+	import gameclasses.*;
+	import enemies.*;
 	public class PlayState extends FlxState 
 	{
 		
@@ -13,9 +15,9 @@ package
 		private var musicOffButton:FlxButton;
 		private var musicOnButton:FlxButton;
 		//Textures
-		[Embed(source = 'assets/crosshair.png')]private var crosshairSprite:Class;
-		[Embed(source = 'assets/splat.png')]private var splat:Class;
-		[Embed(source = 'assets/startBar.png')] private var startBarTexture:Class;
+		[Embed(source = '../../assets/crosshair.png')]private var crosshairSprite:Class;
+		[Embed(source = '../../assets/splat.png')]private var splat:Class;
+		[Embed(source = '../../assets/startBar.png')] private var startBarTexture:Class;
 
 		override public function create():void 
 		{
@@ -29,7 +31,7 @@ package
 			backgroundPlace();
 			add(scoreText);
 			add(Registry.player);
-			add(Registry.enemies);
+			add(Registry.enemiesGroup);
 			add(Registry.player.gun);
 			add(Registry.bullets);
 			add(Registry.platforms);
@@ -53,7 +55,7 @@ package
 		}
 		private function apiHasLoaded():void 
 		{
-			connect();
+			FlxKongregate.connect();
 			
 		}
 		public function mainMenuClick():void
@@ -80,7 +82,7 @@ package
 			scoreText.text = "Distance: " + (FlxG.score.toString());
 			
 			//COLLISSION START
-			if (FlxG.overlap(Registry.enemies, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
+			if (FlxG.overlap(Registry.enemiesGroup, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
 			{
 				FlxG.shake(0.05, 0.5,null, true, 0);
 				var emitter:FlxEmitter = createEmitter(splat,100);
@@ -92,7 +94,7 @@ package
 				add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
 			}
 			
-			FlxG.overlap(Registry.bullets, Registry.enemies, enemyBulletCollision);
+			FlxG.overlap(Registry.bullets, Registry.enemiesGroup, enemyBulletCollision);
 			
 			
 			if(FlxG.overlap(Registry.startBar, Registry.player) || FlxG.overlap(Registry.platforms, Registry.player))
