@@ -16,8 +16,8 @@ package states
 			
 			background = new Background(400, 0);
 			add(background);
-			enemiesGroup = new EnemyManager(10);
-			enemiesGroup.typesAvaible = 10;
+			enemiesGroup = new EnemyManager();
+			enemiesGroup.typesAvailable = 10;
 			add(enemiesGroup);
 			for (var enemy in enemiesGroup.members) 
 			{

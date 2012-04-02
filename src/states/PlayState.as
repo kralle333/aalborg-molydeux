@@ -36,7 +36,6 @@ package states
 			add(Registry.bullets);
 			add(Registry.platforms);
 			add(Registry.groundTiles);
-		
 			add(musicOffButton);
 			initGround();
 			
@@ -96,16 +95,16 @@ package states
 			
 			FlxG.overlap(Registry.bullets, Registry.enemiesGroup, enemyBulletCollision);
 			
-			
+			FlxG.overlap(Registry.platforms, Registry.player,corpseCollision)
 			if(FlxG.overlap(Registry.startBar, Registry.player) || FlxG.overlap(Registry.platforms, Registry.player))
-			{
-				Registry.player.landed(false);
-			}
-			else
 			{
 				Registry.player.landed(true);
 			}
-			FlxG.overlap(Registry.platforms, Registry.player,corpseCollision)
+			else
+			{
+				Registry.player.landed(false);
+			}
+			
 			//COLLISSION END
 			updateBackground();
 			updateGround();
@@ -118,11 +117,12 @@ package states
 			var platform:CorpsePlatform = CorpsePlatform(platformHit);
 			if (platform.type == "corpseBounce")
 			{
-				Registry.player.landed(true);
+				Registry.player.landed(false);
+				Registry.player.isBouncing = true;
 			}
 			else
 			{
-				Registry.player.landed(false);
+				Registry.player.landed(true);
 			}
 		}
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
@@ -202,8 +202,11 @@ package states
 		}
 		private function saveHighscore(highscore:int):void
 		{
-			HighScoreState.onSave(highscore);
-			FlxKongregate.submitStats("Highscore", highscore);
+			if (highscore > 0)
+			{
+				HighScoreState.onSave(highscore);
+				FlxKongregate.submitStats("Highscore", highscore);
+			}
 		}
 		private function musicOff():void
 		{
