@@ -4,6 +4,7 @@ package
 	import flash.sampler.NewObjectSample;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import org.flixel.plugin.photonstorm.API.FlxKongregate;
 	public class PlayState extends FlxState 
 	{
 		
@@ -18,6 +19,7 @@ package
 
 		override public function create():void 
 		{
+			FlxKongregate.init(apiHasLoaded);
 			musicOffButton = new FlxButton(700, 10, "Music Off", musicOff);
 			scoreText = new FlxText(20, 20, 1000,"Distance: ");
 			scoreText.size = 60;
@@ -39,10 +41,20 @@ package
 			Registry.startBar = new FlxSprite(Registry.player.xBounds + 3, FlxG.height - 50, startBarTexture);
 			add(Registry.startBar);
 		}
+		//KONGREGATE!!
+		
+		
+		
+		//End Kongregate
 		public function playAgainClick():void
 		{
 			FlxG.score = 0;
 			FlxG.resetState();
+		}
+		private function apiHasLoaded():void 
+		{
+			connect();
+			
 		}
 		public function mainMenuClick():void
 		{
@@ -188,7 +200,8 @@ package
 		}
 		private function saveHighscore(highscore:int):void
 		{
-			HighScoreState.onSave(highscore);			
+			HighScoreState.onSave(highscore);
+			FlxKongregate.submitStats("Highscore", highscore);
 		}
 		private function musicOff():void
 		{
@@ -203,6 +216,16 @@ package
 				FlxG.music.volume = 0;
 			}
 		}
+		private function connect():void
+		{
+				FlxKongregate.connect();
+		}
+		override public function destroy():void
+		{
+			FlxKongregate.disconnect();
+			super.destroy();
+		}
+		
 	}
 
 }
