@@ -1,24 +1,27 @@
-package  
+package states
 {
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*;
+	import gameclasses.*
+	import enemies.*;
 	public class MainMenuState extends FlxState 
 	{
 		private var playButton:FlxButtonPlus;
 		private var highScoreButton:FlxButtonPlus;
-		[Embed(source = 'assets/molymusic.mp3')] private var molyMusic:Class;
+		[Embed(source = '../../assets/molymusic.mp3')] private var molyMusic:Class;
 		private var background:Background;
-		private var enemies:EnemyManager;
+		private var enemiesGroup:EnemyManager;
 		override public function create():void
 		{
+			
 			background = new Background(400, 0);
 			add(background);
-			enemies = new EnemyManager(10);
-			enemies.typesAvaible = 10;
-			add(enemies);
-			for (var enemy in enemies.members) 
+			enemiesGroup = new EnemyManager(10);
+			enemiesGroup.typesAvaible = 10;
+			add(enemiesGroup);
+			for (var enemy in enemiesGroup.members) 
 			{
-				enemies.members[enemy].x = FlxG.width;
+				enemiesGroup.members[enemy].x = FlxG.width;
 			}
 			HighScoreState._save = new FlxSave();
 			HighScoreState._save.bind("MolyHighscores");
@@ -47,12 +50,12 @@ package
 		override public function update():void 
 		{
 			
-			for (var enemy in enemies.members) 
+			for (var enemy in enemiesGroup.members) 
 			{
-				if (enemies.members[enemy].x <= 400)
+				if (enemiesGroup.members[enemy].x <= 400)
 				{
-					enemies.members[enemy].kill();
-					enemies.members[enemy].x = FlxG.width+30;
+					enemiesGroup.members[enemy].kill();
+					enemiesGroup.members[enemy].x = FlxG.width+30;
 				}
 			}
 			super.update();

@@ -1,4 +1,4 @@
-package  
+package enemies
 {
 	import org.flixel.*;
 	public class EnemyManager extends FlxGroup

@@ -1,9 +1,9 @@
-package  
+package gameclasses
 {
 	import org.flixel.*;
 	public class Bullet extends FlxSprite
 	{
-		[Embed(source = 'assets/bullet.png')]private var texture:Class;
+		[Embed(source = '../../assets/bullet.png')]private var texture:Class;
 		
 		private var speed:int = 10;
 		public var damage:int;

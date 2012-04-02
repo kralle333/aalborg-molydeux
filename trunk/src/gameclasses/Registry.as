@@ -1,11 +1,13 @@
-package  
+package gameclasses
 {
 	import org.flixel.FlxGroup;
 	import org.flixel.FlxSprite;
+	import enemies.*;
+	import states.*;
 	public class Registry 
 	{
 		public static var player:Player;
-		public static var enemies:EnemyManager;
+		public static var enemiesGroup:EnemyManager;
 		public static var bullets:BulletManager;
 		public static var groundTiles:FlxGroup;
 		public static var platforms:FlxGroup;
@@ -16,7 +18,7 @@ package
 		{
 			player = new Player("Dudebro");
 			background = new FlxGroup();
-			enemies = new EnemyManager(1);
+			enemiesGroup = new EnemyManager(1);
 			bullets = new BulletManager();
 			groundTiles = new FlxGroup();
 			platforms = new FlxGroup();
@@ -37,10 +39,10 @@ package
 			{
 				Registry.background.members[backgrounds].x += x;
 			}
-			for (var enemy in enemies.members)
+			for (var enemy in enemiesGroup.members)
 			{
-				//trace(enemies.members[enemy].x);
-				enemies.members[enemy].x += x;
+				//trace(enemiesGroup.members[enemy].x);
+				enemiesGroup.members[enemy].x += x;
 			}
 			startBar.x += x;
 		}
