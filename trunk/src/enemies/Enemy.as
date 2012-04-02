@@ -2,35 +2,29 @@ package enemies
 {
 	import org.flixel.*;
 	import gameclasses.*
+	
 	public class Enemy extends FlxSprite
-	{	
-		[Embed(source = '../../assets/enemy1.png')] private var enemy1:Class;
-		[Embed(source = '../../assets/enemy2.png')] private var enemy2:Class;
-		private var isDead:Boolean = false;
+	{
+		protected var isDead:Boolean = false;
 		private var type:int = 0;
 		private var inAir:Boolean = false;
 		private var maxHeight:int = 100;
 		private var currentMaxHeight:int = 0;
 		private var jumpHeight:int = 0;
 		private var bouncing:Boolean = false;
-		public function Enemy()
+		
+		public function Enemy(texture:Class)
 		{
-			super(-200, 0, enemy1);
-			loadGraphic(enemy1, true,true,24, 64);
-			addAnimation("moveEnemy", [0, 1], 2,true);
-			play("moveEnemy");
+			super(200, 50, texture);
+			exists = false;
 			alive = false;
 			origin.y = height;
 		}
-		public function spawn(typesAvailable:int):void
+		
+		public function spawn(maxStrength:int):void
 		{
-			velocity.x = -Math.random() * 200 - 50;
-			if (Registry.player != null)
-			{
-				x = FlxG.width + Registry.player.x;
-			}
-			y = FlxG.height - height - 40;
 			inAir = false;
+			x = FlxG.width;
 			jumpHeight = 0;
 			alpha = 1;
 			angle = 0;
@@ -39,84 +33,63 @@ package enemies
 			health = 2;
 			angularVelocity = 0;
 			bouncing = false;
-			type = Math.round(Math.random() * (typesAvailable-1));
-			switch(type)
+			var type:int = Math.round(Math.random() * (maxStrength - 1));
+			if (type > 3)
 			{
-				case 0: color = 0xFFFFFFFF;loadGraphic(enemy1, true,true,24, 64); break;
-				case 1: color = 0xFFFF0000;loadGraphic(enemy1, true,true,24, 64); break;
-				case 2: color = 0xFF00FFFF;loadGraphic(enemy1, true,true,24, 64); health = 8; break;
-				case 3:  color = 0xFFFFFFFF;y = 100; loadGraphic(enemy2, false, false, 64, 64); angularVelocity = Math.random() * 100+100; break;
+				type = 3;
+			}
+			switch (type)
+			{
+				case 1: 
+					color = 0xFF00FF00;
+					health = 4;
+					break;
+				case 2: 
+					color = 0xFFFF0000;
+					health = 6;
+					break;
+				case 3: 
+					color = 0xFF0000FF;
+					health = 8;
+					break;
 			}
 		}
-		override public function hurt(damage:Number):void 
+		
+		override public function hurt(damage:Number):void
 		{
-			 super.hurt(damage);
+			super.hurt(damage);
 		}
-		override public function kill():void 
+		
+		override public function kill():void
 		{
 			isDead = true;
 		}
-		override public function update():void 
+		
+		override public function update():void
 		{
 			super.update();
-			
-			if (type == 3)
-			{
-				
-				if (y + height >FlxG.height - 60)
-				{
-					bouncing = true;
-				}
-				if (bouncing)
-				{
-					y -=5;
-					if (y + height < FlxG.height / 2)
-					{
-						bouncing = false;
-					}
-				}
-				else
-				{
-					y -= Math.random() * 2 - 2
-				}
-			}
+			move();
 			if (x + width < 0)
 			{
 				isDead = true;
 			}
 			if (isDead)
 			{
-				if (y < FlxG.height - height - 40)
-				{
-					y -= 10;
-				}
-				angle += 10;
-				alpha -= 0.1;
-				if (angle >=90)
-				{
-					
-					exists = false;
-					alive = false;
-					isDead = false;
-					var corpsePosition:int = FlxG.height - height - 40 + 50;
-					var stringType:String = "Corpse";
-					if (type == 3)
-					{
-						stringType = "corpseBounce";
-						corpsePosition -= 10;
-					}
-					if (Registry.platforms != null)
-					{
-						Registry.platforms.add(new CorpsePlatform(stringType, x, corpsePosition));
-					}
-				}
-			}			
-		}
-					//Enemies override this
-			public function move():void
-			{
-				
+				die();
 			}
+		
+		}
+		
+		//Enemies override this
+		public function move():void
+		{
+		
+		}
+		
+		public function die():void
+		{
+		
+		}
 	}
 
 }

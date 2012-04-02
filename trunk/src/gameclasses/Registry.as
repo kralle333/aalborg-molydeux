@@ -18,7 +18,7 @@ package gameclasses
 		{
 			player = new Player("Dudebro");
 			background = new FlxGroup();
-			enemiesGroup = new EnemyManager(1);
+			enemiesGroup = new EnemyManager();
 			bullets = new BulletManager();
 			groundTiles = new FlxGroup();
 			platforms = new FlxGroup();
@@ -41,7 +41,6 @@ package gameclasses
 			}
 			for (var enemy in enemiesGroup.members)
 			{
-				//trace(enemiesGroup.members[enemy].x);
 				enemiesGroup.members[enemy].x += x;
 			}
 			startBar.x += x;

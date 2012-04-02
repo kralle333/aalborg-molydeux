@@ -5,13 +5,13 @@ package enemies
 	{
 		private var enemiesAllowed:int = 5;
 		private var enemiesAlive:int = 0;
-		public var typesAvaible:int = 1;
-		public function EnemyManager(types:int)
+		public var typesAvailable:int = 1;
+		public var enemyStrength:int = 1;
+		public function EnemyManager()
 		{
-			typesAvaible = types;
 			for (var i:int = 0; i < enemiesAllowed; i++)
 			{
-				add(new Enemy);
+				add(new NormalZombie());
 				spawnEnemy();
 			}
 		}
@@ -20,29 +20,36 @@ package enemies
 			var enemy:Enemy = Enemy(getFirstDead());
 			if (enemy)		
 			{
-				enemy.spawn(typesAvaible);
-				alive = true;
+				remove(enemy);
+				var type:int = Math.round(Math.random() * (typesAvailable - 1));
+				if (type > 2)
+				{
+					type = 2;
+				}
+				var newEnemy:Enemy;
+				switch(type)
+				{
+					case 0:newEnemy = new NormalZombie(); break;
+					case 1:newEnemy = new BouncyZombie(); break;
+					case 2:newEnemy = new FlyingZombie(); break;
+				}
+				newEnemy.spawn(enemyStrength);
+				add(newEnemy);				
 				enemiesAlive++;
 			}
 		}
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.score !=0 &&FlxG.score%1000 == 0)
+			if (FlxG.score !=0 &&FlxG.score%3000 == 0 && FlxG.score %6000 != 0)
 			{
-				enemiesAllowed += 2;
-				if (typesAvaible == 1)
-				{
-					typesAvaible++;
-				}
+				enemiesAllowed += 5;
+				enemyStrength++;		
 			}
-			if (FlxG.score !=0 && FlxG.score%1000 == 0)
+			if (FlxG.score !=0 &&FlxG.score%6000 == 0)
 			{
-				if (typesAvaible == 2)
-				{
-					typesAvaible++;
-				}
-				typesAvaible++;
+				enemiesAllowed += 5;
+				typesAvailable++;
 			}
 			enemiesAlive = this.countLiving();
 			if (enemiesAlive < enemiesAllowed)
