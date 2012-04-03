@@ -1,5 +1,6 @@
 package gameclasses
 {
+	import adobe.utils.CustomActions;
 	import org.flixel.*;
 	import org.flixel.plugin.photonstorm.*
 	
@@ -9,9 +10,11 @@ package gameclasses
 		private var userName:String;
 		private var xSpeed:int = 5;
 		private var ySpeed:int = 2;
-		private var canJump:Boolean = true;
+		
+		public var isLanded:Boolean = true;
 		public var falling:Boolean = false;
 		public var jumping:Boolean = false;
+		
 		private var maxHeight:int = 100;
 		private var jumpHeight:int = 0;
 		public var gun:FlxSprite;
@@ -19,9 +22,12 @@ package gameclasses
 		public var isBouncing:Boolean = false;
 		private var save:FlxSave = new FlxSave();
 		
+		private var bulletTimer:Number = 0;
+		private var bulletSpeed:Number = 0.05;
+		
 		[Embed(source='../../assets/player.png')]
 		private var bodyTexture:Class;
-		[Embed(source='../../assets/gun.png')]
+		[Embed(source='../../assets/pistol.png')]
 		private var gunTexture:Class;
 		
 		public function Player(userName:String)
@@ -43,10 +49,10 @@ package gameclasses
 			super.update();
 			gun.x = this.x + width / 2 - 5;
 			gun.y = this.y + height / 2 - 10;
-			gun.angle = FlxMath.atan2(FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / 3.14);
+			gun.angle = FlxMath.atan2(FlxG.mouse.y - gun.y, FlxG.mouse.x - gun.x) * (180 / Math.PI);
 			if (FlxG.keys.A && x - xSpeed > 0)
 			{
-				x -= xSpeed;
+				x -= xSpeed/2;
 				if ((!jumping && !falling) && currentAnimation != 2)
 				{
 					play("Walking");
@@ -70,11 +76,16 @@ package gameclasses
 					currentAnimation = 2;
 				}
 			}
+			else if ((!jumping && !falling))
+			{
+				play("Standing");
+				currentAnimation = 0;
+			}
 			if (isBouncing)
 			{
 				y -= 5;
 				jumpHeight += 5;
-				canJump = false;
+				isLanded = false;
 				jumping = true;
 				if (currentAnimation != 1)
 				{
@@ -82,7 +93,7 @@ package gameclasses
 					currentAnimation = 1;
 				}
 			}
-			if ((FlxG.keys.W || FlxG.keys.SPACE) && canJump)
+			if ((FlxG.keys.W || FlxG.keys.SPACE) && isLanded)
 			{
 				jumping = true;
 				if (currentAnimation != 1)
@@ -101,38 +112,37 @@ package gameclasses
 			{
 				falling = true;
 				jumping = false;
-				canJump = false;
+				isLanded = false;
 				isBouncing = false;
 				jumpHeight = 0;
 			}
-			else if (falling)
+			else if (falling && !jumping)
 			{
 				y += ySpeed;
 			}
-			else if ((!jumping && !falling) && currentAnimation != 0)
-			{
-				play("Standing");
-				currentAnimation = 0;
-			}
-			if (FlxG.mouse.justPressed())
+			if (FlxG.mouse.justReleased())
 			{
 				var bulletX:int = Math.round(gun.x + gun.width * Math.cos(FlxMath.asRadians(gun.angle)));
-				var bulletY:int = Math.round(gun.y + gun.height / 2 + gun.width * Math.sin(FlxMath.asRadians(gun.angle)));
+				var bulletY:int = Math.round(gun.y+12 + gun.width * Math.sin(FlxMath.asRadians(gun.angle)));
 				var velocityX:Number = Math.cos(FlxMath.asRadians(gun.angle));
 				var velocityY:Number = Math.sin(FlxMath.asRadians(gun.angle));
 				Registry.bullets.fire(bulletX, bulletY, velocityX, velocityY);
+				bulletTimer = 0;
 			}
-		}
-		public function landed(value:Boolean):void
-		{
-			if (value == true)
+			else if (FlxG.mouse.pressed())
 			{
-				falling = false;
+				if (bulletTimer > 1)
+				{
+					var bulletX:int = Math.round(gun.x + gun.width * Math.cos(FlxMath.asRadians(gun.angle)));
+					var bulletY:int = Math.round(gun.y+12 + gun.width * Math.sin(FlxMath.asRadians(gun.angle)));
+					var velocityX:Number = Math.cos(FlxMath.asRadians(gun.angle));
+					var velocityY:Number = Math.sin(FlxMath.asRadians(gun.angle));
+					Registry.bullets.fire(bulletX, bulletY, velocityX, velocityY);
+					bulletTimer = 0;
+				}
+				bulletTimer += bulletSpeed;
 			}
-			if (canJump == false && value)
-			{
-				canJump = true;
-			}
+			
 		}
 	}
 

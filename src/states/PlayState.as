@@ -12,6 +12,9 @@ package states
 		
 		//For highscore
 		private var scoreText:FlxText;
+		private var killsText:FlxText;
+		private var kills:int = 0;
+		private var moneyText:FlxText;
 		private var musicOffButton:FlxButton;
 		private var musicOnButton:FlxButton;
 		//Textures
@@ -23,13 +26,11 @@ package states
 		{
 			FlxKongregate.init(apiHasLoaded);
 			musicOffButton = new FlxButton(700, 10, "Music Off", musicOff);
-			scoreText = new FlxText(20, 20, 1000,"Distance: ");
-			scoreText.size = 60;
 			super.create();
 			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
 			Registry.init();
 			backgroundPlace();
-			add(scoreText);
+			
 			add(Registry.player);
 			add(Registry.enemiesGroup);
 			add(Registry.player.gun);
@@ -38,8 +39,19 @@ package states
 			add(Registry.groundTiles);
 			add(musicOffButton);
 			initGround();
-			
-			Registry.startBar = new FlxSprite(Registry.player.xBounds + 3, FlxG.height - 50, startBarTexture);
+			scoreText = new FlxText(5, 50, 1000,"Distance: ");
+			scoreText.size = 20;
+			scoreText.color = 0xFF0000FF;
+			add(scoreText);
+			killsText = new FlxText(5, 75, 1000,"Kills: ");
+			killsText.size = 20;
+			killsText.color = 0xFF00FFFF;
+			add(killsText);
+			moneyText = new FlxText(5, 100, 1000,"Money: 0 g");
+			moneyText.size = 20;
+			moneyText.color = 0xFFFF00FF;
+			add(moneyText);
+			Registry.startBar = new FlxSprite(Registry.player.xBounds - 8, FlxG.height - 50, startBarTexture);
 			add(Registry.startBar);
 		}
 		//KONGREGATE!!
@@ -79,6 +91,8 @@ package states
 			if (FlxG.keys.ENTER) { playAgainClick(); }
 			//Updating score
 			scoreText.text = "Distance: " + (FlxG.score.toString());
+			var money:int = FlxG.score / 10 + kills*10;
+			moneyText.text = "Money :" + money + " g";
 			
 			//COLLISSION START
 			if (FlxG.overlap(Registry.enemiesGroup, Registry.player) || FlxG.overlap(Registry.groundTiles,Registry.player))
@@ -98,11 +112,13 @@ package states
 			FlxG.overlap(Registry.platforms, Registry.player,corpseCollision)
 			if(FlxG.overlap(Registry.startBar, Registry.player) || FlxG.overlap(Registry.platforms, Registry.player))
 			{
-				Registry.player.landed(true);
+				Registry.player.isLanded = true;
+				Registry.player.jumping = false;
+				Registry.player.falling = false;
 			}
 			else
 			{
-				Registry.player.landed(false);
+				Registry.player.falling = true;
 			}
 			
 			//COLLISSION END
@@ -117,12 +133,7 @@ package states
 			var platform:CorpsePlatform = CorpsePlatform(platformHit);
 			if (platform.type == "corpseBounce")
 			{
-				Registry.player.landed(false);
 				Registry.player.isBouncing = true;
-			}
-			else
-			{
-				Registry.player.landed(true);
 			}
 		}
 		public function enemyBulletCollision(bulletHit:FlxObject,enemyHit:FlxObject):void
@@ -131,6 +142,11 @@ package states
 			var bullet:Bullet = Bullet(bulletHit);
 			bullet.exists = false;
 			enemy.hurt(bullet.damage);
+			if (enemy.isDead)
+			{
+				kills++;
+				killsText.text = "Kills: " + kills;
+			}
 		}
 		private function initGround():void
 		{

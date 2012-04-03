@@ -41,15 +41,18 @@ package enemies
 		override public function update():void 
 		{
 			super.update();
-			if (FlxG.score !=0 &&FlxG.score%3000 == 0 && FlxG.score %6000 != 0)
+			if (FlxG.score !=0 &&FlxG.score%3000 == 0)
 			{
-				enemiesAllowed += 5;
-				enemyStrength++;		
-			}
-			if (FlxG.score !=0 &&FlxG.score%6000 == 0)
-			{
-				enemiesAllowed += 5;
+				enemiesAllowed += 10;
 				typesAvailable++;
+				FlxG.score++;
+			}
+			if (FlxG.score !=0 &&FlxG.score%10000 == 0)
+			{
+				enemiesAllowed = 5;
+				enemyStrength++;
+				FlxG.score++;
+				typesAvailable = 1;
 			}
 			enemiesAlive = this.countLiving();
 			if (enemiesAlive < enemiesAllowed)
