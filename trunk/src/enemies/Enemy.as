@@ -5,7 +5,7 @@ package enemies
 	
 	public class Enemy extends FlxSprite
 	{
-		protected var isDead:Boolean = false;
+		public var isDead:Boolean = false;
 		private var type:int = 0;
 		private var inAir:Boolean = false;
 		private var maxHeight:int = 100;
@@ -58,6 +58,10 @@ package enemies
 		override public function hurt(damage:Number):void
 		{
 			super.hurt(damage);
+			if (health > 0)
+			{
+				this.flicker(1);
+			}
 		}
 		
 		override public function kill():void
