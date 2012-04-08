@@ -10,7 +10,7 @@ package enemies
 		var jumpHeight:int = 0;
 		var maxHeight:int = 100;
 		var currentMaxHeight:int = 0;
-		[Embed(source='../../assets/enemy1.png')]
+		[Embed(source='../../assets/enemy3.png')]
 		private var texture:Class;
 		
 		public function BouncyZombie()
