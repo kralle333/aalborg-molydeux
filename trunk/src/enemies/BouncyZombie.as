@@ -10,7 +10,7 @@ package enemies
 		var jumpHeight:int = 0;
 		var maxHeight:int = 100;
 		var currentMaxHeight:int = 0;
-		[Embed(source='../../assets/enemy3.png')]
+		[Embed(source='../../assets/enemies/enemy3.png')]
 		private var texture:Class;
 		
 		public function BouncyZombie()
@@ -58,19 +58,27 @@ package enemies
 		
 		}
 		
+		override public function kill():void
+		{
+			super.kill();
+			velocity.y += 500;
+			flicker(2);
+			velocity.x = 0;
+		}
+		
 		override public function die():void
 		{
 			angle += 10;
 			alpha -= 0.1;
-			if (angle >= 90)
+			if (y > FlxG.height - height && angle >= 90)
 			{
 				exists = false;
 				alive = false;
 				isDead = false;
-				var corpsePosition:int = FlxG.height - height - 40 + 50;
+				
 				if (Registry.platforms != null)
 				{
-					Registry.platforms.add(new CorpsePlatform("Corpse", x, corpsePosition));
+					Registry.platforms.add(new CorpsePlatform("Corpse", x, FlxG.height - height - 40 + 50));
 				}
 			}
 		}

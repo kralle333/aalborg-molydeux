@@ -5,7 +5,7 @@ package enemies
 	
 	public class FlyingZombie extends Enemy
 	{
-		[Embed(source='../../assets/enemy2.png')]
+		[Embed(source='../../assets/enemies/enemy2.png')]
 		private var texture:Class;
 		private var bouncing:Boolean = false;
 		

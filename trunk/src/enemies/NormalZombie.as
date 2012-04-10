@@ -4,7 +4,7 @@ package enemies
 	import gameclasses.*;
 	public class NormalZombie extends Enemy
 	{
-		[Embed(source='../../assets/enemy1.png')]
+		[Embed(source='../../assets/enemies/enemy1.png')]
 		private var texture:Class;
 		public function NormalZombie() 
 		{
