@@ -4,7 +4,7 @@ package gameclasses
 	public class Background extends FlxSprite 
 	{
 		
-		[Embed(source = '../../assets/background.png')] private var backgroundSprite:Class;
+		[Embed(source = '../../assets/gametextures/background.png')] private var backgroundSprite:Class;
 		public function Background(x:int, y:int) 
 		{
 			super(x, y);
