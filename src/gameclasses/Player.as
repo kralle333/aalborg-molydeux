@@ -18,7 +18,6 @@ package gameclasses
 		
 		private var maxHeight:int = 100;
 		private var jumpHeight:int = 0;
-		public var gun:FlxSprite;
 		public var xBounds:int = 100;
 		public var isBouncing:Boolean = false;
 		private var save:FlxSave = new FlxSave();
@@ -35,7 +34,7 @@ package gameclasses
 		public function Player(userName:String)
 		{
 			ownedGuns.push("Pistol");
-			ownedGuns.push("SubMachineGun");
+			ownedGuns.push("MachineGun");
 			this.userName = userName;
 			super(xBounds, 0);
 			this.loadGraphic(bodyTexture, true, true, 24, 64);
@@ -131,15 +130,13 @@ package gameclasses
 		{
 			currentWeapon.x = this.x + width / 2 - 5;
 			currentWeapon.y = this.y + height / 2 - 10;
-			currentWeapon.angle = FlxMath.atan2(FlxG.mouse.y - currentWeapon.y, FlxG.mouse.x - currentWeapon.x) * (180 / Math.PI);
-			
+			currentWeapon.angle = Math.atan2(FlxG.mouse.y - currentWeapon.y, FlxG.mouse.x - currentWeapon.x) * (180 / Math.PI);
 			if (currentWeapon.canShoot())
 			{
-				
-				var bulletX:int = Math.round(currentWeapon.x + currentWeapon.width * Math.cos(FlxMath.asRadians(currentWeapon.angle)));
-				var bulletY:int = Math.round(currentWeapon.y + 12 + currentWeapon.width * Math.sin(FlxMath.asRadians(currentWeapon.angle)));
-				var velocityX:Number = Math.cos(FlxMath.asRadians(currentWeapon.angle));
-				var velocityY:Number = Math.sin(FlxMath.asRadians(currentWeapon.angle));
+				var bulletX:int = currentWeapon.x+currentWeapon.barrelPosition.x*Math.cos(currentWeapon.angle/(180/Math.PI));
+				var bulletY:int = currentWeapon.y+currentWeapon.barrelPosition.y*Math.sin(currentWeapon.angle/(180/Math.PI));
+				var velocityX:Number = Math.cos(currentWeapon.angle/(180/Math.PI));
+				var velocityY:Number = Math.sin(currentWeapon.angle/(180/Math.PI));
 				currentWeapon.shoot(bulletX, bulletY, velocityX, velocityY);
 			}
 		}
@@ -154,6 +151,11 @@ package gameclasses
 				}
 			}
 			return false;
+		}
+		
+		public function giveGun(type:String):void
+		{
+			ownedGuns.push(type);
 		}
 	}
 

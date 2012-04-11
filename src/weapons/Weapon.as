@@ -7,6 +7,7 @@ package weapons
 		protected var bulletTimer:Number = 0;
 		protected var bulletSpeed:Number = 0.08;
 		protected var mouseReleased:Boolean;
+		public var barrelPosition:FlxPoint;
 		public var type:String;
 		
 		public function Weapon(texture:Class)

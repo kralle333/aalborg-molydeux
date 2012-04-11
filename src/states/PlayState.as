@@ -19,6 +19,9 @@ package states
 		private var scoreText:FlxText;
 		private var killsText:FlxText;
 		private var kills:int = 0;
+		private var previousScore:int = 0;
+		private var money:int
+		
 		private var moneyText:FlxText;
 		private var musicOffButton:FlxButton;
 		private var musicOnButton:FlxButton;
@@ -35,7 +38,7 @@ package states
 			FlxKongregate.init(apiHasLoaded);
 			musicOffButton = new FlxButton(700, 10, "Music Off", musicOff);
 			super.create();
-			FlxG.mouse.load(crosshairSprite, 1, 0, 0);
+			FlxG.mouse.load(crosshairSprite, 1, 0,0);
 			Registry.init();
 			backgroundPlace();
 			add(Registry.player);
@@ -106,7 +109,11 @@ package states
 			}
 			//Updating score
 			scoreText.text = "Distance: " + (FlxG.score.toString());
-			var money:int = FlxG.score / 10 + kills * 10;
+			if (previousScore != FlxG.score)
+			{
+				money += (FlxG.score - previousScore) / Math.PI;
+				previousScore = FlxG.score;
+			}
 			moneyText.text = "Money :" + money + " g";
 			
 			//Select Weapon begin
@@ -117,40 +124,67 @@ package states
 				Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
 				add(Registry.player.currentWeapon);
 			}
-			else if (FlxG.keys.TWO && Registry.player.currentWeapon.type != "SubMachineGun" && Registry.player.ownsGun("SubMachineGun"))
+			else if (FlxG.keys.TWO && Registry.player.currentWeapon.type != "SubMachineGun")
 			{
-				remove(Registry.player.currentWeapon);
-				Registry.player.currentWeapon = new SubMachineGun();
-				Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
-				add(Registry.player.currentWeapon);
+				if (!Registry.player.ownsGun("SubMachineGun"))
+				{
+					if (money >= 5000)
+					{
+						Registry.player.giveGun("SubMachineGun");
+						money -= 5000;
+					}
+				}
+				if (Registry.player.ownsGun("SubMachineGun"))
+				{
+					remove(Registry.player.currentWeapon);
+					Registry.player.currentWeapon = new SubMachineGun();
+					Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
+					add(Registry.player.currentWeapon);
+				}
 			}
-			else if (FlxG.keys.THREE && Registry.player.currentWeapon.type != "Shotgun" && Registry.player.ownsGun("Shotgun"))
+			else if (FlxG.keys.THREE && Registry.player.currentWeapon.type != "Shotgun")
 			{
-				remove(Registry.player.currentWeapon);
-				Registry.player.currentWeapon = new Shotgun();
-				Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
-				add(Registry.player.currentWeapon);
+				if (!Registry.player.ownsGun("Shotgun"))
+				{
+					if (money >= 10000)
+					{
+						Registry.player.giveGun("Shotgun");
+						money -= 10000;
+					}
+				}
+				if (Registry.player.ownsGun("Shotgun"))
+				{
+					remove(Registry.player.currentWeapon);
+					Registry.player.currentWeapon = new Shotgun();
+					Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
+					add(Registry.player.currentWeapon);
+				}
 			}
-			else if (FlxG.keys.FOUR && Registry.player.currentWeapon.type != "MachineGun" && Registry.player.ownsGun("MachineGun"))
+			else if (FlxG.keys.FOUR && Registry.player.currentWeapon.type != "MachineGun")
 			{
-				remove(Registry.player.currentWeapon);
-				Registry.player.currentWeapon = new MachineGun();
-				Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
-				add(Registry.player.currentWeapon);
+				if (!Registry.player.ownsGun("MachineGun"))
+				{
+					if (money >= 15000)
+					{
+						Registry.player.giveGun("MachineGun");
+						money -= 15000;
+					}
+				}
+				if (Registry.player.ownsGun("MachineGun"))
+				{
+					remove(Registry.player.currentWeapon);
+					Registry.player.currentWeapon = new MachineGun();
+					Registry.player.currentWeapon.origin = new FlxPoint(4, 4);
+					add(Registry.player.currentWeapon);
+				}
 			}
 			//Select Weapon end
 			
 			//COLLISSION START
-			if (FlxG.overlap(Registry.enemiesGroup, Registry.player) || FlxG.overlap(Registry.groundTiles, Registry.player))
+			FlxG.overlap(Registry.enemiesGroup, Registry.player, enemyPlayerCollision);
+			if (FlxG.overlap(Registry.groundTiles, Registry.player))
 			{
-				FlxG.shake(0.05, 0.5, null, true, 0);
-				var emitter:FlxEmitter = createEmitter(splat, 100);
-				emitter.at(Registry.player);
-				Registry.player.exists = false;
-				Registry.player.currentWeapon.exists = false;
-				saveHighscore(FlxG.score);
-				add(new FlxButton(330, 250, "Play Again", playAgainClick));
-				add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
+				killPlayer();
 			}
 			
 			FlxG.overlap(Registry.bullets, Registry.enemiesGroup, enemyBulletCollision);
@@ -173,7 +207,24 @@ package states
 			updatePlatforms();
 		
 		}
-		
+		private function killPlayer():void
+		{
+			FlxG.shake(0.05, 0.5, null, true, 0);
+			var emitter:FlxEmitter = createEmitter(splat, 100);
+			emitter.at(Registry.player);
+			Registry.player.exists = false;
+			Registry.player.currentWeapon.exists = false;
+			saveHighscore(FlxG.score);
+			add(new FlxButton(330, 250, "Play Again", playAgainClick));
+			add(new FlxButton(330, 300, "Main Menu", mainMenuClick));
+		}
+		public function enemyPlayerCollision(enemy:FlxObject, player:FlxObject):void
+		{
+			if (!Enemy(enemy).isDead)
+			{
+				killPlayer();
+			}
+		}
 		public function corpseCollision(platformHit:FlxObject, player:FlxObject):void
 		{
 			
@@ -194,6 +245,7 @@ package states
 			{
 				kills++;
 				killsText.text = "Kills: " + kills;
+				money += (enemy.type * enemy.strength) * 10;
 			}
 		}
 		
@@ -226,7 +278,7 @@ package states
 			{
 				var farRightTile:Background;
 				var xPosition:int = 0;
-				for (var backgrounds in Registry.background.members)
+				for (var backgrounds:String in Registry.background.members)
 				{
 					if (Registry.background.members[backgrounds].x > xPosition)
 					{
@@ -246,7 +298,7 @@ package states
 			{
 				var farRightTile:GroundTile;
 				var xPosition:int = 0;
-				for (var tile in Registry.groundTiles.members)
+				for (var tile:String in Registry.groundTiles.members)
 				{
 					if (Registry.groundTiles.members[tile].x > xPosition)
 					{

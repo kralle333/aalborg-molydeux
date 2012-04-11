@@ -9,6 +9,7 @@ package weapons
 		public function SubMachineGun() 
 		{
 			super(texture);
+			barrelPosition = new FlxPoint(35, 12);
 			type = "SubMachineGun";
 			bulletSpeed = 0.1;
 		}
@@ -20,7 +21,6 @@ package weapons
 		{
 			var randomVelocityX:Number = Math.random()*bulletOffset*2-bulletOffset;
 			var randomVelocityY:Number = Math.random() * bulletOffset*2 - bulletOffset;
-			trace(randomVelocityX);
 			super.shoot(x - 15, y, velocityX + randomVelocityX, velocityY + randomVelocityY);
 			bulletTimer = 0;
 		}

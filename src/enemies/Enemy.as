@@ -6,7 +6,8 @@ package enemies
 	public class Enemy extends FlxSprite
 	{
 		public var isDead:Boolean = false;
-		private var type:int = 0;
+		public var type:int = 0;
+		public var strength:int = 0;
 		private var inAir:Boolean = false;
 		private var maxHeight:int = 100;
 		private var currentMaxHeight:int = 0;
@@ -33,22 +34,26 @@ package enemies
 			health = 2;
 			angularVelocity = 0;
 			bouncing = false;
-			var type:int = Math.round(Math.random() * (maxStrength - 1));
-			if (type > 3)
+			strength = Math.round(Math.random() * (maxStrength));
+			if (strength > 3)
 			{
-				type = 3;
+				strength = 3;
 			}
-			switch (type)
+			else if (strength < 2)
 			{
-				case 1: 
+				strength = 1;
+			}
+			switch (strength)
+			{
+				case 2: 
 					color = 0xFF00FF00;
 					health = 4;
 					break;
-				case 2: 
+				case 3: 
 					color = 0xFFFF0000;
 					health = 6;
 					break;
-				case 3: 
+				case 4: 
 					color = 0xFF0000FF;
 					health = 8;
 					break;

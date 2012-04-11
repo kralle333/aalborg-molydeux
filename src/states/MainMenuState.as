@@ -19,7 +19,7 @@ package states
 			enemiesGroup = new EnemyManager();
 			enemiesGroup.typesAvailable = 10;
 			add(enemiesGroup);
-			for (var enemy in enemiesGroup.members) 
+			for (var enemy:String in enemiesGroup.members) 
 			{
 				enemiesGroup.members[enemy].x = FlxG.width;
 			}
@@ -50,7 +50,7 @@ package states
 		override public function update():void 
 		{
 			
-			for (var enemy in enemiesGroup.members) 
+			for (var enemy:String in enemiesGroup.members) 
 			{
 				if (enemiesGroup.members[enemy].x <= 400)
 				{
