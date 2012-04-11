@@ -6,15 +6,16 @@ package enemies
 	
 	public class BouncyZombie extends Enemy
 	{
-		var inAir:Boolean = false;
-		var jumpHeight:int = 0;
-		var maxHeight:int = 100;
-		var currentMaxHeight:int = 0;
+		private var inAir:Boolean = false;
+		private var jumpHeight:int = 0;
+		private var maxHeight:int = 100;
+		private var currentMaxHeight:int = 0;
 		[Embed(source='../../assets/enemies/enemy3.png')]
 		private var texture:Class;
 		
 		public function BouncyZombie()
 		{
+			type = 2;
 			super(texture);
 			loadGraphic(texture, true, true, 24, 64);
 			addAnimation("moveEnemy", [0, 1], 2, true);

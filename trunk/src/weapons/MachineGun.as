@@ -5,9 +5,11 @@ package weapons
 	{
 		[Embed(source='../../assets/weapons/machinegun.png')]
 		private var texture:Class;
-				private var bulletOffset:Number = 0.05;
+		private var bulletOffset:Number = 0.05;
 		public function MachineGun() 
 		{
+			bulletSpeed = 0.2;
+			barrelPosition = new FlxPoint(30, 13);
 			super(texture);
 		}
 		override public function canShoot():Boolean 
@@ -18,7 +20,6 @@ package weapons
 		{
 			var randomVelocityX:Number = Math.random()*bulletOffset*2-bulletOffset;
 			var randomVelocityY:Number = Math.random() * bulletOffset*2 - bulletOffset;
-			trace(randomVelocityX);
 			super.shoot(x - 10, y, velocityX + randomVelocityX, velocityY + randomVelocityY);
 			bulletTimer = 0;
 		}

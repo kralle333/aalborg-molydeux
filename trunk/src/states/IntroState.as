@@ -5,9 +5,9 @@ package states
 	{
 		private var title:FlxText;
 		private var tweetSprite:FlxSprite;
-		[Embed(source = '../../assets/gameTitle.png')] var tweet:Class;
-		var timer:FlxTimer;
-		var titlesShown:Boolean = false;
+		[Embed(source = '../../assets/gameTitle.png')] private var tweet:Class;
+		private var timer:FlxTimer;
+		private var titlesShown:Boolean = false;
 		override public function create():void 
 		{
 			super.create();

@@ -5,8 +5,8 @@ package enemies
 	{
 		public var added:Boolean;
 		public var type:String = "";
-		[Embed(source = '../../assets/gametextures/corpse.png')] var platformTexture:Class;
-		[Embed(source = '../../assets/gametextures/corpseBounce.png')] var bouncyTexture:Class;
+		[Embed(source = '../../assets/gametextures/corpse.png')] private var platformTexture:Class;
+		[Embed(source = '../../assets/gametextures/corpseBounce.png')] private var bouncyTexture:Class;
 		public function CorpsePlatform(type:String,x:int,y:int) 
 		{
 			var chosenTexture:Class;

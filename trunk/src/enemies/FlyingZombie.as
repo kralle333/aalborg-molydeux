@@ -11,6 +11,7 @@ package enemies
 		
 		public function FlyingZombie()
 		{
+			type = 3;
 			super(texture);
 			loadGraphic(texture);
 		}

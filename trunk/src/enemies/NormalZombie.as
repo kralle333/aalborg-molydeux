@@ -8,6 +8,7 @@ package enemies
 		private var texture:Class;
 		public function NormalZombie() 
 		{
+			type = 1;
 			super(texture);
 			loadGraphic(texture, true, true, 24, 64);
 			addAnimation("moveEnemy", [0, 1], 2, true);

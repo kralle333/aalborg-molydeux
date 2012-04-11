@@ -4,7 +4,7 @@ package gameclasses
 	public class GroundTile extends FlxSprite
 	{
 		[Embed(source = '../../assets/gametextures/ground1.png')] private var ground1Texture:Class;
-		var animationSpeed:Number = 0.5;
+		private var animationSpeed:Number = 0.5;
 		public function GroundTile(x:int,y:int) 
 		{
 			super(x, y);

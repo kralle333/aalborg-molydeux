@@ -26,20 +26,20 @@ package gameclasses
 		}
 		public static function moveAllObjects(x:int):void
 		{
-			for (var tile in groundTiles.members)
+			for (var tile:String in groundTiles.members)
 			{
 				Registry.groundTiles.members[tile].x += x;
 			}
-			for (var platform in platforms.members)
+			for (var platform:String in platforms.members)
 			{
 				platforms.members[platform].x += x;
 			}
 			
-			for (var backgrounds in background.members) 
+			for (var backgrounds:String in background.members) 
 			{
 				Registry.background.members[backgrounds].x += x;
 			}
-			for (var enemy in enemiesGroup.members)
+			for (var enemy:String in enemiesGroup.members)
 			{
 				enemiesGroup.members[enemy].x += x;
 			}
