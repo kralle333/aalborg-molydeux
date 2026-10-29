@@ -1,0 +1,9 @@
+# FlashDevelop build output
+obj/
+bin/*.swf
+!bin/expressInstall.swf
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.suo
